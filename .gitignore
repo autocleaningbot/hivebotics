@@ -1,6 +1,6 @@
-./Disposable/
-./Disposable_Brush_Container/
-./Master_plate/
-./simulation_models/
-./Tool_stick
-./Tool_Stick_holder/
+Disposable/*
+Disposable_Brush_Container/*
+Master_plate/*
+simulation_models/*
+Tool_stick/*
+Tool_Stick_holder/*

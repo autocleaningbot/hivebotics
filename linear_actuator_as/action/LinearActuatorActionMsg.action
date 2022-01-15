@@ -1,0 +1,7 @@
+int32 count
+string direction
+---
+int32 position
+int32 totalSeconds
+---
+int32 percentage_moved

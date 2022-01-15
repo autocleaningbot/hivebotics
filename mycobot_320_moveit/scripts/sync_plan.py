@@ -25,11 +25,11 @@ def listener():
     global mc
     rospy.init_node("mycobot_reciver", anonymous=True)
     port = subprocess.check_output(['echo -n /dev/ttyUSB*'], 
-                                    shell=True)
-
-    port = rospy.get_param("~port", port)
+                                    shell=True).decode()
+    print(port, 'port')
+    # port = rospy.get_param("/mycobot_services/port")
     baud = rospy.get_param("~baud", 1000000)
-    mc = MyCobot('/dev/ttyUSB0', baud)
+    mc = MyCobot(port, baud)
 
     rospy.Subscriber("joint_states", JointState, callback)
 

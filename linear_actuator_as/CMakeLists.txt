@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_action_files(
   FILES
-  LinearActuatorActionMsg.action
+  Actuator.action
 )
 
 generate_messages(
@@ -18,9 +18,9 @@ generate_messages(
 )
 
 catkin_package(
-  CATKIN_DEPENDS std_msgs actionlib_msgs rospy
+  CATKIN_DEPENDS rospy
 )
 
-include_directories((
+include_directories(
   $(catkin_INCLUDE_DIRS)
-))
+)

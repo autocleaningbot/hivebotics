@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="abluo_urdf_1">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.309109343575688 0.405036218997021 0.380201325443818"
+        rpy="0 0 0" />
+      <mass
+        value="14.2555803950512" />
+      <inertia
+        ixx="0.549171544154035"
+        ixy="1.78512123313814E-07"
+        ixz="-0.00013122839856196"
+        iyy="0.466247889556106"
+        iyz="-0.00934705366164777"
+        izz="0.25805409063547" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.92156862745098 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="linear_actuator">
+    <inertial>
+      <origin
+        xyz="-0.055133 0.044776 -0.0022861"
+        rpy="0 0 0" />
+      <mass
+        value="0.47129" />
+      <inertia
+        ixx="0.00052744"
+        ixy="6.7991E-05"
+        ixz="-1.7352E-05"
+        iyy="0.0012323"
+        iyz="3.822E-06"
+        izz="0.00079092" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/linear_actuator.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/linear_actuator.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="linear_actuator_to_trolley"
+    type="prismatic">
+    <origin
+      xyz="0.37817 0.65097 0.67687"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="linear_actuator" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.45"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

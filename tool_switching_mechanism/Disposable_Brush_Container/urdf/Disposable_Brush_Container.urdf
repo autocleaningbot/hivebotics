@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Disposable_Brush_Container">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.037309 0.045597 5.8905E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.47993" />
+      <inertia
+        ixx="0.00073716"
+        ixy="-3.4076E-05"
+        ixz="1.0993E-17"
+        iyy="0.00065522"
+        iyz="-1.3032E-18"
+        izz="0.00084971" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Disposable_Brush_Container/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="ABS">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Disposable_Brush_Container/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+</robot>

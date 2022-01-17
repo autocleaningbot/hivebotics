@@ -1,190 +1,84 @@
+/* Linear Actuator Controller
+
+   Creates a Servo Controller Subsriber Node on Arduino
+   - subsribes to /la_servo topic
+   - uses AccelStepper library to update servo position
+
+   Dependencies:
+   - rosserial_arduino library - Follow http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup
+   - AccelStepper library - Install from ManageLibraries in Arduino
+
+   created 2022
+   by Rishab Patwari <https://patwaririshab.github.io>
+   modified 16 Jan 2022
+   by Rishab Patwari
+ */
+
+
+// Include ROS Libraries
+#include <Arduino.h>
+#include <ros.h>
+#include <std_msgs/Int32.h>
+#include <std_msgs/String.h>
+
+// Include AccelStepper Library & Define Pins
 #include <AccelStepper.h>
 #include <stdio.h>
 #define dirPin 12
 #define stepPin 11
 #define motorInterfaceType 1
 
+// Init ROS Helpers
+ros::NodeHandle nh;
+std_msgs::Int32 feedback_msg;
+ros::Publisher pub("servo_current_pos", &feedback_msg);
+
+// Init AccelStepper Library Helpers
 AccelStepper stepper = AccelStepper(motorInterfaceType, stepPin, dirPin);
+#define MAX_STEPPER_SPEED 600
+#define STEPPER_ACCELERATION 5000
+#define STEPPER_THRESHOLD 4500
 
-struct MessagePacket
-{
-  char dir;
-  int duration;
-};
+void servo_cb (const std_msgs::Int32& cmd_msgs) {
+  nh.loginfo("Message Received");
+  int value = cmd_msgs.data;
+  char output[80];
+  sprintf(output, "Received Servo Angle = %d", value);
+  nh.loginfo(output);
+  
+  // Set the position target
+  stepper.moveTo(value);
 
-struct FeedbackPacket
-{
-  int time_from_start;
-  int current_pos;
-  bool success;
-};
-
-const byte numChars = 32;
-char receivedChars[numChars]; // an array to store the received data
-
-boolean newData = false;
-
-unsigned long starttime, endtime;
-
-String welcomeMessage = "Welcome to Linear Actuator Driver\n\
-Available Commands:\n\
-1: Move for Specific Duration in Miliseconds\n\
-\tMOVE UP: 1 w durationInt\n\
-\tMOVE DOWN: 1 w durationInt\n\n\
-2: Set Current Position to 0\n\
-3: Print Current Position\n\
-4: Run to Specific Stepper Motor Position\n\
-\t4 positionInt";
-
-void setup()
-{
-  // Set the maximum speed in steps per second
-  stepper.setMaxSpeed(600);
-  stepper.setAcceleration(5000);
-  Serial.begin(9600);
-  delay(1000);
-  Serial.println(welcomeMessage);
-}
-
-void calibrate()
-{
-  // Move Up to Limit Switch
-  // Get stepperPosition A
-  // Move Down to Limit Switch
-  // Get stepperPosition B
-  // Calculate Total Stepper Position Length = A - B
-  // Set the stepperPosition B as -(Position Length / 2)
-  return 0;
-}
-
-void moveUp(int speed = 600, int duration = 1000)
-{
-  starttime = millis(); // Number of miliseconds -> 1000 ms = 1 s, 10000 ms = 10 s,
-  endtime = starttime;
-  stepper.setSpeed(speed);
-  while ((endtime - starttime) < duration)
-  {
-    stepper.runSpeed();
-    endtime = millis();
+  // Non-blocking call to run the motor + publish feedback
+  while (stepper.distanceToGo() != 0) {
+    stepper.run();
+    feedback_msg.data = stepper.currentPosition();
+    pub.publish(&feedback_msg);
   }
 }
 
-void moveDown(int speed = 600, int duration = 1000)
-{
-  starttime = millis(); // Number of miliseconds -> 1000 ms = 1 s, 10000 ms = 10 s,
-  endtime = starttime;
-  stepper.setSpeed(-speed);
-  while ((endtime - starttime) < duration)
-  {
-    stepper.runSpeed();
-    endtime = millis();
-  }
+ros::Subscriber<std_msgs::Int32> sub("servo", &servo_cb);
+
+// Move Up Actuator Till Callibrate - Attach Code to Cause Interrupt
+void callibrateStepper() {
+  // stepper.runToNewPosition(STEPPER_THRESHOLD + 1000);
+  // Attach Interrupt
+  stepper.setCurrentPosition(0);
 }
 
-void recvWithEndMarker()
-{
-  static byte ndx = 0;
-  char endMarker = '\n';
-  char rc;
+void setup() {
+  // Init Stepper & Callibrate Position
+  stepper.setMaxSpeed(MAX_STEPPER_SPEED);
+  stepper.setAcceleration(STEPPER_ACCELERATION);
+  callibrateStepper();
 
-  while (Serial.available() > 0 && newData == false)
-  {
-    rc = Serial.read();
-
-    if (rc != endMarker)
-    {
-      receivedChars[ndx] = rc;
-      ndx++;
-      if (ndx >= numChars)
-      {
-        ndx = numChars - 1;
-      }
-    }
-    else
-    {
-      receivedChars[ndx] = '\0'; // terminate the string
-      ndx = 0;
-      newData = true;
-    }
-  }
+  // Init ROS Node, Publisher, Subscriber
+  nh.initNode();
+  nh.subscribe(sub);
+  nh.advertise(pub);
 }
 
-void moveActuator(MessagePacket packet)
-{
-  String feedback = "NULL";
-  bool success = false;
-  //  int current_pos = stepper.currentPosition();
-
-  if (packet.dir == 'w' || packet.dir == 'W')
-  {
-    moveUp(600, packet.duration);
-    feedback = "UP " + (String)packet.duration;
-    success = true;
-  }
-  if (packet.dir == 's' || packet.dir == 'S')
-  {
-
-    moveDown(600, packet.duration);
-    feedback = "DOWN " + (String)packet.duration;
-    success = true;
-  }
-  Serial.println(feedback);
-}
-
-void processNewData()
-{
-  if (newData == true)
-  {
-    int command = String(strtok(receivedChars, " ")).toInt();
-    switch (command)
-    {
-    // 1. Move the Actuator by Time
-    case 1:
-    {
-      MessagePacket packet;
-      packet.dir = String(strtok(NULL, " "))[0];
-      packet.duration = String(strtok(NULL, " ")).toInt();
-      moveActuator(packet);
-      break;
-    }
-    // 2. Set current position to 0
-    case 2:
-    {
-      stepper.setCurrentPosition(0);
-      break;
-    }
-    // 3. Get current position
-    case 3:
-    {
-      Serial.print("This is the current position: ");
-      Serial.println(stepper.currentPosition());
-      break;
-    }
-    // 4. Run to Position
-    case 4:
-    {
-      int position = String(strtok(NULL, " ")).toInt();
-      stepper.runToNewPosition(position);
-      Serial.print("Run to position complete. Current Position: ");
-      Serial.println(stepper.currentPosition());
-      break;
-    }
-    default:
-      break;
-    }
-
-    // PRINT PACKET IN JSON LIKE FORMAT FOR DEBUGGING
-    //    String messageString = ("{\n  dir: "
-    //                              + ((String) packet.dir) + "\n  "
-    //                              + "duration: " + (String) packet.duration
-    //                              + "\n}");
-    //    Serial.print(messageString);
-    newData = false;
-  }
-}
-
-void loop()
-{
-  recvWithEndMarker();
-  processNewData();
+void loop(){
+  nh.spinOnce();
+  delay(1);
 }

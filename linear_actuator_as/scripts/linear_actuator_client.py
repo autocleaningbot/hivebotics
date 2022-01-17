@@ -18,7 +18,7 @@ client.wait_for_server()
 
 # creates a goal to send to the action server
 goal = ActuatorGoal()
-goal.targetPos = 10 # indicates, take pictures along 10 seconds
+goal.targetPos = 0 # indicates, take pictures along 10 seconds
 goal.speed = 600
 
 # sends the goal to the action server, specifying which feedback function

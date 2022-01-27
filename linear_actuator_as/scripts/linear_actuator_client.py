@@ -16,14 +16,29 @@ client = actionlib.SimpleActionClient('/linear_actuator_server', ActuatorAction)
 # waits until the action server is up and running
 client.wait_for_server()
 
-# creates a goal to send to the action server
-goal = ActuatorGoal()
-goal.targetPos = 0 # indicates, take pictures along 10 seconds
-goal.speed = 600
+def move_to_pos(position=600):
 
-# sends the goal to the action server, specifying which feedback function
-# to call when feedback received
-client.send_goal(goal, feedback_cb=feedback_callback)
 
-client.wait_for_result()
-rospy.loginfo('[Result] Endpos: {} Success: {} '.format(client.get_result().endPos, client.get_result().success))
+    # creates a goal to send to the action server
+    goal = ActuatorGoal()
+    goal.targetPos = position
+    goal.speed = 600
+
+    # sends the goal to the action server, specifying which feedback function
+    # to call when feedback received
+    client.send_goal(goal, feedback_cb=feedback_callback)
+
+    client.wait_for_result()
+    rospy.loginfo('[Result] Endpos: {} Success: {} '.format(client.get_result().endPos, client.get_result().success))
+    
+
+# move_to_pos(0)
+while True:
+    command = input()
+    if command == 'e':
+        break
+    elif command == 'c':
+        move_to_pos(2000)
+        move_to_pos(-2000)
+        move_to_pos(0)
+        

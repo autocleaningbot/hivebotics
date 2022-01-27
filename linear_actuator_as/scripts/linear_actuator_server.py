@@ -37,6 +37,11 @@ class LinearActuatorClass():
             self._feedback.currentPos = self._servo_current_pos
             self._as.publish_feedback(self._feedback)
             rospy.sleep(0.2)
+        
+        # Publish Final Position
+        self._feedback.currentPos = self._servo_current_pos
+        self._as.publish_feedback(self._feedback)
+        
 
         if success:
             self._result.endPos = self._servo_current_pos

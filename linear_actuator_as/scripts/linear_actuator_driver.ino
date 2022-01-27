@@ -55,6 +55,10 @@ void servo_cb (const std_msgs::Int32& cmd_msgs) {
     feedback_msg.data = stepper.currentPosition();
     pub.publish(&feedback_msg);
   }
+
+  // Publish Final Position
+  feedback_msg.data = stepper.currentPosition();
+  pub.publish(&feedback_msg);
 }
 
 ros::Subscriber<std_msgs::Int32> sub("servo", &servo_cb);

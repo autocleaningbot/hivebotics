@@ -1,0 +1,9 @@
+<launch>
+	<arg name="la_port" default='/dev/ttyACM0' />
+
+    <node name="linear_actuator_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+        <param name="port" type="string" value="$(arg la_port)"/>
+    </node>
+
+    <node name="linear_actuator_server" pkg="linear_actuator_as" type="linear_actuator_server.py" output="screen"/>
+</launch>

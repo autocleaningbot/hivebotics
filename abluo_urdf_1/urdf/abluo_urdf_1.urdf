@@ -8,17 +8,17 @@
     name="base_link">
     <inertial>
       <origin
-        xyz="0.309109343575688 0.405036218997021 0.380201325443818"
+        xyz="0.314368340132374 0.377555022857893 0.400452017692568"
         rpy="0 0 0" />
       <mass
-        value="14.2555803950512" />
+        value="13.1202235524193" />
       <inertia
-        ixx="0.549171544154035"
-        ixy="1.78512123313814E-07"
-        ixz="-0.00013122839856196"
-        iyy="0.466247889556106"
-        iyz="-0.00934705366164777"
-        izz="0.25805409063547" />
+        ixx="0.54665417885733"
+        ixy="1.4238821137223E-07"
+        ixz="-0.000131159040413172"
+        iyy="0.46363983536376"
+        iyz="-0.00931413578840215"
+        izz="0.256005962598474" />
     </inertial>
     <visual>
       <origin
@@ -45,20 +45,20 @@
     </collision>
   </link>
   <link
-    name="linear_actuator">
+    name="tool_holder">
     <inertial>
       <origin
-        xyz="-0.055133 0.044776 -0.0022861"
+        xyz="-5.4328E-05 0.035446 -0.00021215"
         rpy="0 0 0" />
       <mass
-        value="0.47129" />
+        value="0.1248" />
       <inertia
-        ixx="0.00052744"
-        ixy="6.7991E-05"
-        ixz="-1.7352E-05"
-        iyy="0.0012323"
-        iyz="3.822E-06"
-        izz="0.00079092" />
+        ixx="0.0001414"
+        ixy="-1.5081E-07"
+        ixz="1.4383E-09"
+        iyy="0.00012456"
+        iyz="6.236E-07"
+        izz="0.00022858" />
     </inertial>
     <visual>
       <origin
@@ -66,7 +66,60 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://abluo_urdf_1/meshes/linear_actuator.STL" />
+          filename="package://abluo_urdf_1/meshes/tool_holder.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/tool_holder.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tool_holder_to_trolley"
+    type="fixed">
+    <origin
+      xyz="0.47532 0.67022 0.32681"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="tool_holder" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="bin">
+    <inertial>
+      <origin
+        xyz="0.063 -0.071426 0.092008"
+        rpy="0 0 0" />
+      <mass
+        value="0.26632" />
+      <inertia
+        ixx="0.0014744"
+        ixy="8.8967E-19"
+        ixz="4.6847E-18"
+        iyy="0.0017467"
+        iyz="-6.7797E-05"
+        izz="0.0010769" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/bin.STL" />
       </geometry>
       <material
         name="">
@@ -80,25 +133,131 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://abluo_urdf_1/meshes/linear_actuator.STL" />
+          filename="package://abluo_urdf_1/meshes/bin.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="linear_actuator_to_trolley"
-    type="prismatic">
+    name="bin_to_trolley"
+    type="fixed">
     <origin
-      xyz="0.37817 0.65097 0.67687"
+      xyz="0.41232 0.78622 0.051806"
       rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
-      link="linear_actuator" />
+      link="bin" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="refill">
+    <inertial>
+      <origin
+        xyz="-0.099098 -0.032213 0.058669"
+        rpy="0 0 0" />
+      <mass
+        value="0.48444" />
+      <inertia
+        ixx="0.00085088"
+        ixy="1.1098E-17"
+        ixz="1.6448E-18"
+        iyy="0.00073833"
+        iyz="3.4076E-05"
+        izz="0.00065736" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/refill.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/refill.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="refill_to_trolley"
+    type="fixed">
+    <origin
+      xyz="0.23641 0.73898 0.11878"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="refill" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="robot_arm_mount">
+    <inertial>
+      <origin
+        xyz="0.01059 -0.0039437 -0.002491"
+        rpy="0 0 0" />
+      <mass
+        value="0.42315" />
+      <inertia
+        ixx="0.00050278"
+        ixy="6.7967E-05"
+        ixz="-1.7444E-05"
+        iyy="0.0011978"
+        iyz="3.9255E-06"
+        izz="0.00077881" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/robot_arm_mount.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://abluo_urdf_1/meshes/robot_arm_mount.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="robot_arm_mount_to_actuator"
+    type="prismatic">
+    <origin
+      xyz="0.30617 0.70397 0.49087"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="robot_arm_mount" />
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-0.45"
-      upper="0"
+      lower="-0.2"
+      upper="0.2"
       effort="0"
       velocity="0" />
   </joint>

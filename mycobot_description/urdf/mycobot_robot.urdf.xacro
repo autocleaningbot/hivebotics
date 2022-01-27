@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mycobot_pro">
+  <xacro:arg name="ros_namespace" default="mycobot_pro"/>
+  <xacro:arg name="attach_to" default="world"/>
+  <xacro:arg name="camera_sensor" default="True"/>
+
+  <!-- load mycobot_pro robot -->
+  <xacro:include filename="$(find mycobot_description)/urdf/mycobot_robot_macro.xacro" />
+  <xacro:mycobot_pro_robot_macro camera_sensor="$(arg camera_sensor)" attach_to="$(arg attach_to)"/>
+
+</robot>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding='utf-8'?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="mycobot_pro_robot_macro" params="prefix:='' attach_to:='world' xyz:='0 0 0' rpy:='0 0 0' camera_sensor:=False ">
+
+    <!-- include mycobot relative macros: -->
+    <xacro:include filename="$(find mycobot_description)/urdf/320_urdf/mycobot_pro_320.urdf" />
+    
+    <!-- include gazebo elements -->
+    <!-- <xacro:include filename="$(find mycobot_description)/urdf/mycobot_robot.gazebo.xacro"/> -->
+
+    <!-- add one world link if no 'attach_to' specified  -->
+    <xacro:if value="${attach_to == 'world'}">
+      <link name="world"/>
+    </xacro:if>
+
+    <joint name="world_joint" type="fixed">
+      <parent link="${attach_to}" />
+      <child link = "base" />
+      <origin xyz="${xyz}" rpy="${rpy}" />
+    </joint>
+
+    <!-- include the camera sensor mounted on the robotic arm if sensor is true -->
+    <!-- <xacro:if value="${camera_sensor == True}">
+      <xacro:include filename="$(find mycobot_description)/urdf/mycobot_robot.sensor.xacro" />
+    </xacro:if> -->
+
+  </xacro:macro>
+</robot>

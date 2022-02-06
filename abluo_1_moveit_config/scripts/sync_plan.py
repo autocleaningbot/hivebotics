@@ -22,8 +22,8 @@ def callback(data):
         if index != 0:
             data_list.append(value)
     goal = ActuatorGoal()
-    # Range of Servo Pos is -4500 to 4500 (-0.2m to + 0.18 m)
-    goal.targetPos = int(la_pos*5500/0.2)
+    # Range of Servo Pos is -4000 to 3200 (-0.2m to + 0.16 m)
+    goal.targetPos = int(la_pos*4000/0.2)
     goal.speed = 80
     client.send_goal(goal)
     mc.send_radians(data_list, 80)
@@ -32,7 +32,6 @@ def callback(data):
 
 def listener():
     global mc
-    rospy.init_node("mycobot_reciver", anonymous=True)
     client.wait_for_server()
     port = subprocess.check_output(['echo -n /dev/ttyUSB*'], 
                                     shell=True).decode()
@@ -41,11 +40,17 @@ def listener():
     baud = rospy.get_param("~baud", 115200)
     mc = MyCobot(port, baud)
 
-    rospy.Subscriber("joint_states", JointState, callback)
+    rate = rospy.Rate(0.005)
+    while not rospy.is_shutdown():
+        rospy.Subscriber("joint_states", JointState, callback)
+        rate.sleep()
 
-    # spin() simply keeps python from exiting until this node is stopped
-    rospy.spin()
+
 
 
 if __name__ == "__main__":
+    rospy.init_node("mycobot_reciver", anonymous=True)
     listener()
+    # rospy.sleep(1)
+    # # spin() simply keeps python from exiting until this node is stopped
+    # rospy.spin()

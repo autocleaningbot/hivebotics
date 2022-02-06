@@ -13,8 +13,10 @@
         <arg name="port" value="$(arg mycobot_port)"/>
     </include> -->
 
-    <!-- Load MyCobot Topic -->
-    <include file="$(find mycobot_communication)/launch/communication_topic.launch">
+    <!-- Load Simulation -->
+    <!-- <include file="$(find mycobot_communication)/launch/communication_topic.launch">
         <arg name="port" value="$(arg mycobot_port)" />
     </include>
+
+    <include file="$(find abluo_1_moveit_config)/launch/demo_gazebo.launch"/>> -->
 </launch>

@@ -60,8 +60,12 @@ class Abluo_Real_Traj_Planner():
                 try: 
                     command = input()
                     if (command == 's' or command == 'S'):
-                        mycobot_angles = self._mycobot.get_angles()
-                        la_pos = self._la_servo_current_pos
+                        joint_angles = self.arm.get_current_joint_values()
+                        mycobot_angles = joint_angles[1:]
+                        la_pos = joint_angles[0]*20000
+
+                        # la_pos = self._la_servo_current_pos
+                        print('LA Pos', la_pos)
                         print('MYCOBOT ANGLES', mycobot_angles)
                         if len(mycobot_angles) == 0:
                             rospy.loginfo('Did not get angles, try again')
@@ -88,7 +92,7 @@ class Abluo_Real_Traj_Planner():
                 la_pos = waypoint['la']
 
                 la_goal = ActuatorGoal()
-                la_goal.targetPos = int(la_pos)
+                la_goal.targetPos = la_pos
                 la_goal.speed = 600
 
                 # # 0.176 m = 3600 steps

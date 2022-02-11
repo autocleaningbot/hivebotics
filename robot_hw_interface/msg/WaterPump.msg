@@ -1,0 +1,2 @@
+bool water_pump_status
+int32 speed

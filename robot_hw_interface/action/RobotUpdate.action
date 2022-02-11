@@ -1,0 +1,24 @@
+# Goal
+# 
+# The system has 2 types of commands 
+# 1: arm_actuator_command 2: tool_command (water pump, solenoid valve, dc motor)
+
+int32 cmd
+MycobotAngles mycobot_angles
+LinearActuatorPose la_pose
+ToolUpdate tool_state
+---
+# Result
+
+bool success
+int32 cmd
+MycobotAngles mycobot_angles
+LinearActuatorPose la_pose
+ToolUpdate tool_state
+---
+# Feedback
+int32 status_percent
+int32 cmd
+MycobotAngles mycobot_angles
+LinearActuatorPose la_pose
+ToolUpdate tool_state

@@ -1,0 +1,22 @@
+<launch>
+    <arg name="la_port" default='/dev/ttyACM0' />
+    <arg name="mycobot_port" default='/dev/ttyUSB0' />
+
+
+    <!-- Launch Linear Actuator As -->
+    <include file="$(find linear_actuator_as)/launch/linear_actuator_topic.launch">
+        <arg name="la_port" value="$(arg la_port)" />
+    </include>
+
+    <!-- Launch MyCobot Service -->
+    <include file="$(find mycobot_communication)/launch/communication_service.launch">
+        <arg name="port" value="$(arg mycobot_port)"/>
+    </include>
+
+    <!-- Load Simulation -->
+    <!-- <include file="$(find mycobot_communication)/launch/communication_topic.launch">
+        <arg name="port" value="$(arg mycobot_port)" />
+    </include> -->
+
+    <include file="$(find abluo_1_moveit_config)/launch/demo_gazebo.launch"/>>
+</launch>

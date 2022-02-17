@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="toilet_bowl_model">
+  <xacro:property name="width" value=".2" />
+
+  <link name="toilet_bowl_base">
+    <inertial>
+      <origin xyz="0.168137290218174 0.37111271971656 0.900957664124744" rpy="0 0 0" />
+      <mass value="147.602779533608" />
+      <inertia ixx="3.30913106412552" ixy="0.00231508396789663" ixz="0.0427132161406999" iyy="4.12059766074393" iyz="-0.0411704248806174" izz="3.24537569825029" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://toilet_bowl_model/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.988235294117647 0.984313725490196 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://toilet_bowl_model/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="toilet_seat">
+    <inertial>
+      <origin xyz="-0.19613 0.177 0.0084034" rpy="0 0 0" />
+      <mass value="1.1419" />
+      <inertia ixx="0.016838" ixy="1.2216E-10" ixz="0.00017976" iyy="0.021366" iyz="1.4356E-09" izz="0.03813" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://toilet_bowl_model/meshes/toilet_seat.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.98824 0.98431 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://toilet_bowl_model/meshes/toilet_seat.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="toilet_seat_to_base" type="fixed">
+    <origin xyz="0.24103 0.19269 0.9391" rpy="0 1.4486 0" />
+    <parent link="toilet_bowl_base" />
+    <child link="toilet_seat" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="-1.692" effort="0" velocity="0" />
+  </joint>
+  <link name="toilet_cover">
+    <inertial>
+      <origin xyz="-0.177 0.035959 -0.18976" rpy="0 0 0" />
+      <mass value="2.5494" />
+      <inertia ixx="0.040607" ixy="-2.3416E-09" ixz="-1.3977E-07" iyy="0.0667" iyz="0.0050064" izz="0.027431" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://toilet_bowl_model/meshes/toilet_cover.STL" />
+      </geometry>
+      <material name="ceramic">
+        <color rgba="0.98824 0.98431 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://toilet_bowl_model/meshes/toilet_cover.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="toilet_cover_to_base" type="fixed">
+    <origin xyz="0.24103 0.19269 0.9391" rpy="3.1416 0 -1.5708" />
+    <parent link="toilet_bowl_base" />
+    <child link="toilet_cover" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="-1.692" effort="0" velocity="0" />
+  </joint>
+</robot>

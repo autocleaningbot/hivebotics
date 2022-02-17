@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="brush_swapping_stick">
+  <xacro:property name="width" value=".2" />
+  <link name="brush_swapping_stick_link">
+    <inertial>
+      <origin xyz="0.00089899 -0.058654 0.0010125" rpy="0 0 0" />
+      <mass value="0.14232" />
+      <inertia ixx="4.7311E-05" ixy="2.2786E-08" ixz="-2.0986E-07" iyy="4.1798E-05" iyz="5.5679E-08" izz="4.7366E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://brush_swapping_stick/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.77647 0.75686 0.73725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://brush_swapping_stick/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+</robot>

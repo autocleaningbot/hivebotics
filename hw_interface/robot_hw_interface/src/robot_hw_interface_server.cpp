@@ -88,10 +88,10 @@ public:
             arm_goal.request.joint_6 = goal->mycobot_angles.joint_6;
             arm_goal.request.speed = goal->mycobot_angles.speed;
             
-            la_action_client.sendGoal(la_goal_,
-                                        boost::bind(&RobotHwAs::laDoneCB, this, _1, _2),
-                                        La_Client::SimpleActiveCallback(),
-                                        boost::bind(&RobotHwAs::laFeedbackCB, this, _1));
+            // la_action_client.sendGoal(la_goal_,
+            //                             boost::bind(&RobotHwAs::laDoneCB, this, _1, _2),
+            //                             La_Client::SimpleActiveCallback(),
+            //                             boost::bind(&RobotHwAs::laFeedbackCB, this, _1));
             if (mycobot_client.call(arm_goal))
             {
                 // Add Prempted Code

@@ -1,0 +1,83 @@
+<launch>
+    <param name="robot_description" command="xacro  '$(find arm_plus_base_description)/urdf/arm_plus_base.urdf.xacro'" />
+    <!-- common -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- moveit settings -->
+    <param name="robot_description_semantic" textfile="$(find abluo_1_moveit_config)/config/mycobot_pro.srdf" />
+    <group ns="robot_description_planning">
+        <rosparam command="load" file="$(find abluo_1_moveit_config)/config/joint_limits.yaml" />
+    </group>
+    <group ns="robot_description_kinematics">
+        <rosparam command="load" file="$(find abluo_1_moveit_config)/config/kinematics.yaml" />
+    </group>
+
+
+    <arg name="planning_adapters" value="default_planner_request_adapters/AddTimeParameterization
+    default_planner_request_adapters/FixWorkspaceBounds
+    default_planner_request_adapters/FixStartStateBounds
+    default_planner_request_adapters/FixStartStateCollision
+    default_planner_request_adapters/FixStartStatePathConstraints" />
+
+    <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
+    <include file="$(find abluo_1_moveit_config)/launch/planning_context.launch">
+        <arg name="load_robot_description" value="true" />
+    </include>
+
+    <!-- Remap follow_joint_trajectory -->
+    <remap from="/joint_trajectory_action" to="/arm_motion_group_controller/follow_joint_trajectory" />
+
+    <!-- Run the main MoveIt executable without trajecotry execution (we do not have controllers configured by default) -->
+    <include file="$(find abluo_1_moveit_config)/launch/move_group.launch">
+        <arg name="allow_trajectory_execution" value="true" />
+        <arg name="info" value="true" />
+        <arg name="moveit_controller_manager" default="ros_control"/>
+    </include>
+
+    <!-- Show in Rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find abluo_control)/basic.rviz" />
+
+    <!-- abluo 1 -->
+    <rosparam file="$(find abluo_control)/config/trajectory_controller.yaml" command="load" />
+
+    <node name="controller_manager" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller arm_motion_group_controller" />
+
+    <!-- Load hardware Interface -->
+    <node name="abluo_hw_main" pkg="abluo_control" type="abluo_hw_main" output="screen" respawn="false" />
+    <node name="hardware_interface" pkg="abluo_control" type="abluo_hw_interface.py" output="screen">
+        <param name="mycobot_port" value="/dev/ttyUSB0" />
+    </node>
+
+</launch>
+
+<!-- Core -->
+<!-- Load controller settings -->
+<!-- <rosparam file="$(find abluo_control)/config/abluo_controller.yaml" command="load"/> -->
+
+<!-- Load hardware Interface -->
+<!-- <node name="abluo_hw_main" pkg="abluo_control" type="abluo_hw_main" output="screen"/> -->
+
+<!-- <node name="abluo_sim_echo" pkg="abluo_control" type="abluo_sim_echo" output="screen"/> -->
+
+<!-- Load Controller Manager -->
+<!-- <node name="ros_control_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
+    output="screen" args="spawn joint_state_controller arm_motion_group_controller"/> -->
+
+<!-- Convert joint states to /tf transitions -->
+<!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> -->
+
+<!-- MOVEIT -->
+
+<!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
+<!-- <include file="$(find abluo_1_moveit_config)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="true"/>
+    </include> -->
+
+<!-- Remap follow_joint_trajectory -->
+<!-- <remap from="/joint_trajectory_action" to="/arm_motion_group_controller/follow_joint_trajectory"/> -->
+
+<!-- Run the main MoveIt executable without trajecotry execution (we do not have controllers configured by default) -->
+<!-- <include file="$(find abluo_1_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="info" value="true"/>
+    </include> -->

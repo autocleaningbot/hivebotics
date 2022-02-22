@@ -1,21 +1,56 @@
 arm_motion_group_controller:
-  type: effort_controllers/JointTrajectoryController
+  type: position_controllers/JointTrajectoryController
   joints:
-    - robot_arm_mount_to_actuator
+    # - robot_arm_mount_to_actuator
     - joint2_to_joint1
     - joint3_to_joint2
     - joint4_to_joint3
     - joint5_to_joint4
     - joint6_to_joint5
     - joint6output_to_joint6
-  gains:
-    robot_arm_mount_to_actuator: { p: 35000, d: 500, i: 1, i_clamp: 1}
-    joint2_to_joint1: { p: 350, d: 150, i: 1, i_clamp: 1 }
-    joint3_to_joint2: { p: 350, d: 150, i: 1, i_clamp: 1 }
-    joint4_to_joint3: { p: 350, d: 50, i: 1, i_clamp: 1 }
-    joint5_to_joint4: { p: 350, d: 50, i: 1, i_clamp: 1 }
-    joint6_to_joint5: { p: 350, d: 50, i: 1, i_clamp: 1 }
-    joint6output_to_joint6: { p: 350, d: 50, i: 1, i_clamp: 1 }
-  constraints:
-    goal_time: 2.0
-  state_publish_rate: 25
+  # gains:
+  #   robot_arm_mount_to_actuator:
+  #     p: 100
+  #     d: 1
+  #     i: 1
+  #     i_clamp: 1
+  #   joint2_to_joint1:
+  #     p: 100
+  #     d: 1
+  #     i: 1
+  #     i_clamp: 1
+  #   joint3_to_joint2:
+  #     p: 100
+  #     d: 1
+  #     i: 1
+  #     i_clamp: 1
+  #   joint4_to_joint3:
+  #     p: 100
+  #     d: 1
+  #     i: 1
+  #     i_clamp: 1
+  #   joint5_to_joint4:
+  #     p: 100
+  #     d: 1
+  #     i: 1
+  #     i_clamp: 1
+  #   joint6_to_joint5:
+  #     p: 100
+  #     d: 1
+  #     i: 1
+  #     i_clamp: 1
+  #   joint6output_to_joint6:
+  #     p: 100
+  #     d: 1
+  #     i: 1
+  #     i_clamp: 1
+# scrubbing_tool_controller:
+#   type: position_controllers/JointTrajectoryController
+#   joints:
+#     - joint6output_to_joint6
+#   gains:
+#     joint6output_to_joint6:
+#       p: 100
+#       d: 1
+#       i: 1
+#       i_clamp: 1

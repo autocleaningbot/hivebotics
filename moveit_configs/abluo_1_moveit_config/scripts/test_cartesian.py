@@ -1,6 +1,8 @@
 #! /usr/bin/env python3
 
+import json
 import subprocess
+import time
 import rospy
 import moveit_commander
 import moveit_msgs.msg
@@ -24,19 +26,19 @@ mycobot = MyCobot(port, 115200)
 
 rospy.sleep(1)
 
-# coordinate_sequence = []
+coordinate_sequence = []
 # coordinate_array = []
-# with open('bowl_top_traj.yaml', 'r') as f:
-#    load_array = yaml.load(f)
-#    for item in load_array:
-#        name = item['name']
-#        point = item['point']
+with open('test_real.json', 'r') as f:
+   load_object = json.load(f)
+   load_array = load_object["test7"]
+   for item in load_array:
+       coordinate_sequence.append(item["mycobot"])
+   
+   print(coordinate_sequence)
 
-#        coordinate_sequence.append(point)
-
-client = actionlib.SimpleActionClient('/robot_hw_as', RobotUpdateAction)
-client.wait_for_server()
-rospy.loginfo('Server Ready')
+# client = actionlib.SimpleActionClient('/robot_hw_as', RobotUpdateAction)
+# client.wait_for_server()
+# rospy.loginfo('Server Ready')
 
 in_final_pos = False
 waypoint_list = []
@@ -95,33 +97,33 @@ while not in_final_pos:
 print('WP LIST', waypoint_list)
 
 
-test_goal = RobotUpdateGoal()
-test_goal.cmd = 1
-test_goal.la_pose.targetPos = 0
-test_goal.mycobot_angles.joint_1 = 80
-test_goal.mycobot_angles.joint_2 = 0
-test_goal.mycobot_angles.joint_3 = 0
-test_goal.mycobot_angles.joint_4 = 0
-test_goal.mycobot_angles.joint_5 = 0
-test_goal.mycobot_angles.joint_6 = 0
-test_goal.mycobot_angles.speed = 50
+# test_goal = RobotUpdateGoal()
+# test_goal.cmd = 1
+# test_goal.la_pose.targetPos = 0
+# test_goal.mycobot_angles.joint_1 = 80
+# test_goal.mycobot_angles.joint_2 = 0
+# test_goal.mycobot_angles.joint_3 = 0
+# test_goal.mycobot_angles.joint_4 = 0
+# test_goal.mycobot_angles.joint_5 = 0
+# test_goal.mycobot_angles.joint_6 = 0
+# test_goal.mycobot_angles.speed = 50
 
-rospy.loginfo('SENT GOAL')
-client.send_goal_and_wait(test_goal)
+# rospy.loginfo('SENT GOAL')
+# client.send_goal_and_wait(test_goal)
 
-as_goal = RobotUpdateGoal()
-for wp in waypoint_list:
-    print('AS_GOAL', wp)
-    rospy.loginfo('SENT GOAL')
-    client.send_goal(wp)
-    client.wait_for_result(rospy.Duration(0.05))
-    # client.send_goal_and_wait(wp, rospy.Duration(0.01))
-    # client.wait_for_result()
+# as_goal = RobotUpdateGoal()
+# for wp in waypoint_list:
+#     print('AS_GOAL', wp)
+#     rospy.loginfo('SENT GOAL')
+#     client.send_goal(wp)
+#     client.wait_for_result(rospy.Duration(0.01))
+#     client.send_goal_and_wait(wp, rospy.Duration(0.01))
+#     client.wait_for_result()
 
-# mycobot.sync_send_angles([0,0,0,0,0,0], 10)
-# for pos in pos_array:
-#     mycobot.send_angles(pos, 50)
-#     rospy.sleep(0.015)
+mycobot.sync_send_angles([0,0,0,0,0,0], 10)
+for pos in coordinate_sequence:
+    mycobot.sync_send_angles(pos, 50)
+    # time.sleep(0.05)
 
 
 # moveit_commander.roscpp_initialize(sys.argv)

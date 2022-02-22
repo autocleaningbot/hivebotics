@@ -15,7 +15,7 @@
 
        <!-- include gazebo transmissions -->
        <xacro:include filename="$(find arm_plus_base_description)/urdf/arm_plus_base.gazebo.xacro"/>
-      <xacro:mycobot_pro_robot_macro camera_sensor="$(arg camera_sensor)" attach_to="$(arg attach_to)" xyz="0 0.015 0" rpy="-1.5707 -1.5707 0"/>
+      <xacro:mycobot_pro_robot_macro camera_sensor="$(arg camera_sensor)" attach_to="$(arg attach_to)" xyz="0 0.015 0" rpy="-1.5707 1.5707 0"/>
       
   </xacro:macro>
   <xacro:base_arm_macro/>

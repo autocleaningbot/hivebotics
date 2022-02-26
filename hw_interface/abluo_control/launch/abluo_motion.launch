@@ -1,0 +1,9 @@
+<launch>
+
+    <node name="abluo_elipse_traj_motion" pkg="abluo_control" type="abluo_motion" respawn="false" output="screen">
+      <rosparam command="load" file="$(find abluo_1_moveit_config)/config/kinematics.yaml"/>
+      <param name="/planning_plugin" value="ompl_interface/OMPLPlanner"/>
+      <rosparam command="load" file="$(find abluo_1_moveit_config)/config/ompl_planning.yaml"/>
+    </node>
+  
+  </launch>

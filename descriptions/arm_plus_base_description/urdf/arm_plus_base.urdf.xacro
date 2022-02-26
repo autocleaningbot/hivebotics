@@ -22,7 +22,7 @@
 
   <xacro:macro name="simulation_models_macro">
     <!-- load toilet bowl -->
-    <xacro:include filename="$(find toilet_bowl_model)/urdf/toilet_bowl_model.urdf"/>
+    <xacro:include filename="$(find toilet_bowl_model)/urdf/toilet_bowl_model.xacro"/>
     <link name="world_base"/>
 
     <joint name="toilet_base_to_world" type="fixed">
@@ -39,7 +39,5 @@
     </joint>
   </xacro:macro>
   <xacro:simulation_models_macro/>
-
-
 
 </robot>

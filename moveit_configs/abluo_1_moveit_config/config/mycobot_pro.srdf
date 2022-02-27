@@ -25,13 +25,14 @@
         <joint name="joint4_to_joint3"/>
         <joint name="joint5_to_joint4"/>
         <joint name="joint6_to_joint5"/>
+        <joint name="joint6output_to_joint6"/>
     </group>
-    <group name="scrubbing_tool">
+    <!-- <group name="scrubbing_tool">
         <link name="link6"/>
         <link name="brush_swapping_stick_link"/>
         <joint name="joint6output_to_joint6"/>
         <joint name="brush_swapping_stick_joint"/>
-    </group>
+    </group> -->
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     <group_state name="init_pose" group="arm_motion_group">
         <joint name="joint2_to_joint1" value="0"/>
@@ -42,11 +43,11 @@
         <joint name="joint6output_to_joint6" value="0.1517"/>
         <joint name="robot_arm_mount_to_actuator" value="0.0944"/>
     </group_state>
-    <group_state name="scrubbing_init_pose" group="scrubbing_tool">
+    <!-- <group_state name="scrubbing_init_pose" group="scrubbing_tool">
         <joint name="joint6output_to_joint6" value="1.0279"/>
-    </group_state>
+    </group_state> -->
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="scrubbing_tool" parent_link="link5" group="scrubbing_tool"/>
+    <!-- <end_effector name="scrubbing_tool" parent_link="link5" group="scrubbing_tool"/> -->
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="world_base_joint" type="fixed" parent_frame="world" child_link="world_base"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->

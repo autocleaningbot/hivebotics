@@ -6,6 +6,7 @@
 
   <!-- Load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="arm_motion_group_controller scrubbing_tool_controller "/>
+    output="screen" args="arm_motion_group_controller  "/>
+    <!-- scrubbing_tool_controller -->
 
 </launch>

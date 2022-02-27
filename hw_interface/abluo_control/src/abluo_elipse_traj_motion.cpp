@@ -113,135 +113,160 @@ int main(int argc, char** argv)
   // ^^^^^^^^^^^^^^^^^^^^^^^^^
   visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to start the demo");
 
-  // .. _move_group_interface-planning-to-pose-goal:
-  //
-  // Planning to a Pose goal
-  // ^^^^^^^^^^^^^^^^^^^^^^^
-  // We can plan a motion for this group to a desired pose for the
-  // end-effector.
-  geometry_msgs::Pose target_pose1;
-  target_pose1.orientation.w = 0.000123124;
-  target_pose1.position.x = 0.38239;
-  target_pose1.position.y = 1.1232;
-  target_pose1.position.z = 0.77211;
-  move_group.setPoseTarget(target_pose1);
+  // // .. _move_group_interface-planning-to-pose-goal:
+  // //
+  // // Planning to a Pose goal
+  // // ^^^^^^^^^^^^^^^^^^^^^^^
+  // // We can plan a motion for this group to a desired pose for the
+  // // end-effector.
+  // geometry_msgs::Pose target_pose1;
+  // target_pose1.orientation.w = 1;
+  // target_pose1.position.x = 0.38239;
+  // target_pose1.position.y = 1.1232;
+  // target_pose1.position.z = 0.77211;
+  // move_group.setPoseTarget(target_pose1);
+  // move_group.move();
 
-  // Now, we call the planner to compute the plan and visualize it.
-  // Note that we are just planning, not asking move_group
-  // to actually move the robot.
+  // // Now, we call the planner to compute the plan and visualize it.
+  // // Note that we are just planning, not asking move_group
+  // // to actually move the robot.
   moveit::planning_interface::MoveGroupInterface::Plan my_plan;
 
-  bool success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+  // bool success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
-  ROS_INFO_NAMED("tutorial", "Visualizing plan 1 (pose goal) %s", success ? "" : "FAILED");
+  // ROS_INFO_NAMED("tutorial", "Visualizing plan 1 (pose goal) %s", success ? "" : "FAILED");
 
-  // Visualizing plans
-  // ^^^^^^^^^^^^^^^^^
-  // We can also visualize the plan as a line with markers in RViz.
-  ROS_INFO_NAMED("tutorial", "Visualizing plan 1 as trajectory line");
-  visual_tools.publishAxisLabeled(target_pose1, "pose1");
-  visual_tools.publishText(text_pose, "Pose Goal", rvt::WHITE, rvt::XLARGE);
-  visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
-  visual_tools.trigger();
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+  // // Visualizing plans
+  // // ^^^^^^^^^^^^^^^^^
+  // // We can also visualize the plan as a line with markers in RViz.
+  // ROS_INFO_NAMED("tutorial", "Visualizing plan 1 as trajectory line");
+  // visual_tools.publishAxisLabeled(target_pose1, "pose1");
+  // visual_tools.publishText(text_pose, "Pose Goal", rvt::WHITE, rvt::XLARGE);
+  // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
+  // visual_tools.trigger();
+  // visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 
-  // Moving to a pose goal
-  // ^^^^^^^^^^^^^^^^^^^^^
-  //
-  // Moving to a pose goal is similar to the step above
-  // except we now use the move() function. Note that
-  // the pose goal we had set earlier is still active
-  // and so the robot will try to move to that goal. We will
-  // not use that function in this tutorial since it is
-  // a blocking function and requires a controller to be active
-  // and report success on execution of a trajectory.
+  // geometry_msgs::Pose target_pose2;
+  // target_pose2.orientation.w = 0.000342435;
+  // target_pose2.position.x = 0.549842;
+  // target_pose2.position.y = 0.953642;
+  // target_pose2.position.z = 0.639554;
+  // move_group.setPoseTarget(target_pose2);
+  // move_group.move();
 
-  /* Uncomment below line when working with a real robot */
-  /* move_group.move(); */
+  // // Now, we call the planner to compute the plan and visualize it.
+  // // Note that we are just planning, not asking move_group
+  // // to actually move the robot.
+  // moveit::planning_interface::MoveGroupInterface::Plan my_plan2;
 
-  // Planning to a joint-space goal
-  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  //
-  // Let's set a joint space goal and move towards it.  This will replace the
-  // pose target we set above.
-  //
-  // To start, we'll create an pointer that references the current robot's state.
-  // RobotState is the object that contains all the current position/velocity/acceleration data.
-  moveit::core::RobotStatePtr current_state = move_group.getCurrentState();
-  //
-  // Next get the current set of joint values for the group.
-  std::vector<double> joint_group_positions;
-  current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
+  // bool success2 = (move_group.plan(my_plan2) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
-  // Now, let's modify one of the joints, plan to the new joint space goal and visualize the plan.
-  joint_group_positions[0] = -1.0;  // radians
-  move_group.setJointValueTarget(joint_group_positions);
+  // ROS_INFO_NAMED("tutorial", "Visualizing plan 1 (pose goal) %s", success2 ? "" : "FAILED");
 
-  success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-  ROS_INFO_NAMED("tutorial", "Visualizing plan 2 (joint space goal) %s", success ? "" : "FAILED");
+  // // x(t) = acost(t) + h and y(t) = bsin(t) + k
+  // // a = 0.4/2 b = 0.3/2
 
-  // Visualize the plan in RViz
-  visual_tools.deleteAllMarkers();
-  visual_tools.publishText(text_pose, "Joint Space Goal", rvt::WHITE, rvt::XLARGE);
-  visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
-  visual_tools.trigger();
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 
-  // Planning with Path Constraints
-  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  //
-  // Path constraints can easily be specified for a link on the robot.
-  // Let's specify a path constraint and a pose goal for our group.
-  // First define the path constraint.
-  moveit_msgs::OrientationConstraint ocm;
-  ocm.link_name = "panda_link7";
-  ocm.header.frame_id = "panda_link0";
-  ocm.orientation.w = 1.0;
-  ocm.absolute_x_axis_tolerance = 0.1;
-  ocm.absolute_y_axis_tolerance = 0.1;
-  ocm.absolute_z_axis_tolerance = 0.1;
-  ocm.weight = 1.0;
 
-  // Now, set it as the path constraint for the group.
-  moveit_msgs::Constraints test_constraints;
-  test_constraints.orientation_constraints.push_back(ocm);
-  move_group.setPathConstraints(test_constraints);
 
-  // We will reuse the old goal that we had and plan to it.
-  // Note that this will only work if the current state already
-  // satisfies the path constraints. So, we need to set the start
-  // state to a new pose.
-  robot_state::RobotState start_state(*move_group.getCurrentState());
-  geometry_msgs::Pose start_pose2;
-  start_pose2.orientation.w = 1.0;
-  start_pose2.position.x = 0.55;
-  start_pose2.position.y = -0.05;
-  start_pose2.position.z = 0.8;
-  start_state.setFromIK(joint_model_group, start_pose2);
-  move_group.setStartState(start_state);
 
-  // Now we will plan to the earlier pose target from the new
-  // start state that we have just created.
-  move_group.setPoseTarget(target_pose1);
+  // // Moving to a pose goal
+  // // ^^^^^^^^^^^^^^^^^^^^^
+  // //
+  // // Moving to a pose goal is similar to the step above
+  // // except we now use the move() function. Note that
+  // // the pose goal we had set earlier is still active
+  // // and so the robot will try to move to that goal. We will
+  // // not use that function in this tutorial since it is
+  // // a blocking function and requires a controller to be active
+  // // and report success on execution of a trajectory.
 
-  // Planning with constraints can be slow because every sample must call an inverse kinematics solver.
-  // Lets increase the planning time from the default 5 seconds to be sure the planner has enough time to succeed.
-  move_group.setPlanningTime(10.0);
+  // /* Uncomment below line when working with a real robot */
+  // /* move_group.move(); */
 
-  success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-  ROS_INFO_NAMED("tutorial", "Visualizing plan 3 (constraints) %s", success ? "" : "FAILED");
+  // // Planning to a joint-space goal
+  // // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  // //
+  // // Let's set a joint space goal and move towards it.  This will replace the
+  // // pose target we set above.
+  // //
+  // // To start, we'll create an pointer that references the current robot's state.
+  // // RobotState is the object that contains all the current position/velocity/acceleration data.
+  // moveit::core::RobotStatePtr current_state = move_group.getCurrentState();
+  // //
+  // // Next get the current set of joint values for the group.
+  // std::vector<double> joint_group_positions;
+  // current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
 
-  // Visualize the plan in RViz
-  visual_tools.deleteAllMarkers();
-  visual_tools.publishAxisLabeled(start_pose2, "start");
-  visual_tools.publishAxisLabeled(target_pose1, "goal");
-  visual_tools.publishText(text_pose, "Constrained Goal", rvt::WHITE, rvt::XLARGE);
-  visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
-  visual_tools.trigger();
-  visual_tools.prompt("next step");
+  // // Now, let's modify one of the joints, plan to the new joint space goal and visualize the plan.
+  // joint_group_positions[0] = -1.0;  // radians
+  // move_group.setJointValueTarget(joint_group_positions);
 
-  // When done with the path constraint be sure to clear it.
-  move_group.clearPathConstraints();
+  // success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+  // ROS_INFO_NAMED("tutorial", "Visualizing plan 2 (joint space goal) %s", success ? "" : "FAILED");
+
+  // // Visualize the plan in RViz
+  // visual_tools.deleteAllMarkers();
+  // visual_tools.publishText(text_pose, "Joint Space Goal", rvt::WHITE, rvt::XLARGE);
+  // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
+  // visual_tools.trigger();
+  // visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+
+  // // Planning with Path Constraints
+  // // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  // //
+  // // Path constraints can easily be specified for a link on the robot.
+  // // Let's specify a path constraint and a pose goal for our group.
+  // // First define the path constraint.
+  // moveit_msgs::OrientationConstraint ocm;
+  // ocm.link_name = "panda_link7";
+  // ocm.header.frame_id = "panda_link0";
+  // ocm.orientation.w = 1.0;
+  // ocm.absolute_x_axis_tolerance = 0.1;
+  // ocm.absolute_y_axis_tolerance = 0.1;
+  // ocm.absolute_z_axis_tolerance = 0.1;
+  // ocm.weight = 1.0;
+
+  // // Now, set it as the path constraint for the group.
+  // moveit_msgs::Constraints test_constraints;
+  // test_constraints.orientation_constraints.push_back(ocm);
+  // move_group.setPathConstraints(test_constraints);
+
+  // // We will reuse the old goal that we had and plan to it.
+  // // Note that this will only work if the current state already
+  // // satisfies the path constraints. So, we need to set the start
+  // // state to a new pose.
+  // robot_state::RobotState start_state(*move_group.getCurrentState());
+  // geometry_msgs::Pose start_pose2;
+  // start_pose2.orientation.w = 1.0;
+  // start_pose2.position.x = 0.55;
+  // start_pose2.position.y = -0.05;
+  // start_pose2.position.z = 0.8;
+  // start_state.setFromIK(joint_model_group, start_pose2);
+  // move_group.setStartState(start_state);
+
+  // // Now we will plan to the earlier pose target from the new
+  // // start state that we have just created.
+  // move_group.setPoseTarget(target_pose1);
+
+  // // Planning with constraints can be slow because every sample must call an inverse kinematics solver.
+  // // Lets increase the planning time from the default 5 seconds to be sure the planner has enough time to succeed.
+  // move_group.setPlanningTime(10.0);
+
+  // success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+  // ROS_INFO_NAMED("tutorial", "Visualizing plan 3 (constraints) %s", success ? "" : "FAILED");
+
+  // // Visualize the plan in RViz
+  // visual_tools.deleteAllMarkers();
+  // visual_tools.publishAxisLabeled(start_pose2, "start");
+  // visual_tools.publishAxisLabeled(target_pose1, "goal");
+  // visual_tools.publishText(text_pose, "Constrained Goal", rvt::WHITE, rvt::XLARGE);
+  // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
+  // visual_tools.trigger();
+  // visual_tools.prompt("next step");
+
+  // // When done with the path constraint be sure to clear it.
+  // move_group.clearPathConstraints();
 
   // Cartesian Paths
   // ^^^^^^^^^^^^^^^
@@ -249,21 +274,58 @@ int main(int argc, char** argv)
   // for the end-effector to go through. Note that we are starting
   // from the new start state above.  The initial pose (start state) does not
   // need to be added to the waypoint list but adding it can help with visualizations
+
+  // const double a = 0.15;
+  // const double b = 0.15;
+  // const double PI = 3.14159265;
+  // const double h = 0.318500;
+  // const double k = 1.0734291;
+
+  // double pos_x = a + h;
+  // double pos_y = k;
+
   std::vector<geometry_msgs::Pose> waypoints;
-  waypoints.push_back(start_pose2);
 
-  geometry_msgs::Pose target_pose3 = start_pose2;
+  // geometry_msgs::Pose target_pose2;
+  // target_pose2.orientation.w = 0.000342435;
+  // target_pose2.position.x = pos_x;
+  // target_pose2.position.y = pos_y;
+  // target_pose2.position.z = 0.414383;
+  // waypoints.push_back(target_pose2); //Push initial pose
 
-  target_pose3.position.z -= 0.2;
-  waypoints.push_back(target_pose3);  // down
+  // for (int i = 0; i <= 720; i+= 20) {
+  //   pos_x = a * cos(i*PI/180.0) + h;
+  //   pos_y = b *sin(i * PI/180.0) + k;
 
-  target_pose3.position.y -= 0.2;
-  waypoints.push_back(target_pose3);  // right
+  //   target_pose2.position.x = pos_x;
+  //   target_pose2.position.y = pos_y;
+  //   ROS_INFO("POS_X: %f",pos_x);
+  //   ROS_INFO("POS_Y: %f",pos_y);
+  //   waypoints.push_back(target_pose2);
+  // }
 
-  target_pose3.position.z += 0.2;
-  target_pose3.position.y += 0.2;
-  target_pose3.position.x -= 0.2;
-  waypoints.push_back(target_pose3);  // up and left
+
+
+
+
+
+
+
+  // waypoints.push_back(start_pose2);
+
+  // geometry_msgs::Pose target_pose3 = start_pose2;
+  geometry_msgs::Pose target_pose2;
+
+  target_pose2.position.z -= 0.2;
+  waypoints.push_back(target_pose2);  // down
+
+  target_pose2.position.y -= 0.2;
+  waypoints.push_back(target_pose2);  // right
+
+  target_pose2.position.z += 0.2;
+  target_pose2.position.y += 0.2;
+  target_pose2.position.x -= 0.2;
+  waypoints.push_back(target_pose2);  // up and left
 
   // Cartesian motions are frequently needed to be slower for actions such as approach and retreat
   // grasp motions. Here we demonstrate how to reduce the speed of the robot arm via a scaling factor
@@ -280,6 +342,7 @@ int main(int argc, char** argv)
   const double eef_step = 0.01;
   double fraction = move_group.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
   ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path) (%.2f%% acheived)", fraction * 100.0);
+  move_group.execute(trajectory);
 
   // Visualize the plan in RViz
   visual_tools.deleteAllMarkers();
@@ -342,7 +405,7 @@ int main(int argc, char** argv)
   another_pose.position.z = 0.9;
   move_group.setPoseTarget(another_pose);
 
-  success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+  bool success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
   ROS_INFO_NAMED("tutorial", "Visualizing plan 5 (pose goal move around cuboid) %s", success ? "" : "FAILED");
 
   // Visualize the plan in RViz

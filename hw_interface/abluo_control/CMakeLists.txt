@@ -71,17 +71,6 @@ target_link_libraries(abluo_hw_main
   ${catkin_LIBRARIES}
 )
 
-add_executable(abluo_motion
-  src/abluo_elipse_traj_motion.cpp
-)
-
-add_dependencies(abluo_motion ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(abluo_motion
-  ${catkin_LIBRARIES}  ${Boost_LIBRARIES}
-)
-
-install(TARGETS abluo_motion DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-
 # add_executable(abluo_sim_echo
 #   src/abluo_sim_echo.cpp
 # )

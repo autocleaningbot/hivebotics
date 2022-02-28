@@ -54,6 +54,7 @@ target_link_libraries(abluo_motion
 )
 
 install(TARGETS abluo_motion DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+<<<<<<< HEAD
 
 
 add_executable(node_test_trajectory_vis
@@ -62,3 +63,5 @@ add_executable(node_test_trajectory_vis
 target_link_libraries(node_test_trajectory_vis
   ${catkin_LIBRARIES}
 )
+=======
+>>>>>>> refs/remotes/origin/master

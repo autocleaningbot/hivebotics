@@ -45,8 +45,11 @@
 
 #include <moveit_visual_tools/moveit_visual_tools.h>
 
+<<<<<<< HEAD
 #include "planning/custom_utils.h"
 
+=======
+>>>>>>> refs/remotes/origin/master
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "abluo_elipse_traj_moition");
@@ -289,12 +292,19 @@ int main(int argc, char** argv)
   std::vector<geometry_msgs::Pose> waypoints;
 
   geometry_msgs::Pose target_pose2;
+<<<<<<< HEAD
   // target_pose2.orientation.w = 0.000342435;
   target_pose2.orientation.w = 1;
   target_pose2.position.x = pos_x;
   target_pose2.position.y = pos_y;
   // target_pose2.position.z = 0.414383;
   target_pose2.position.z = 0.4;
+=======
+  target_pose2.orientation.w = 0.000342435;
+  target_pose2.position.x = pos_x;
+  target_pose2.position.y = pos_y;
+  target_pose2.position.z = 0.414383;
+>>>>>>> refs/remotes/origin/master
   waypoints.push_back(target_pose2); //Push initial pose
 
   for (int i = 0; i <= 720; i+= 20) {
@@ -311,6 +321,7 @@ int main(int argc, char** argv)
 
 
 
+<<<<<<< HEAD
   // Visualize the plan in RViz
   visual_tools.deleteAllMarkers();
   visual_tools.publishText(text_pose, "Joint Space Goal", rvt::WHITE, rvt::XLARGE);
@@ -319,6 +330,8 @@ int main(int argc, char** argv)
     visual_tools.publishAxisLabeled(waypoints[i], "pt" + std::to_string(i), rvt::SMALL);
   visual_tools.trigger();
   visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+=======
+>>>>>>> refs/remotes/origin/master
 
 
 
@@ -354,9 +367,22 @@ int main(int argc, char** argv)
   const double eef_step = 0.01;
   double fraction = move_group.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
   ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path) (%.2f%% acheived)", fraction * 100.0);
+<<<<<<< HEAD
   hivebotics::printRobotTrajectoryMsg(trajectory);
   move_group.execute(trajectory);
 
+=======
+  move_group.execute(trajectory);
+
+  // Visualize the plan in RViz
+  visual_tools.deleteAllMarkers();
+  visual_tools.publishText(text_pose, "Joint Space Goal", rvt::WHITE, rvt::XLARGE);
+  visual_tools.publishPath(waypoints, rvt::LIME_GREEN, rvt::SMALL);
+  for (std::size_t i = 0; i < waypoints.size(); ++i)
+    visual_tools.publishAxisLabeled(waypoints[i], "pt" + std::to_string(i), rvt::SMALL);
+  visual_tools.trigger();
+  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+>>>>>>> refs/remotes/origin/master
 
   // Adding/Removing Objects and Attaching/Detaching Objects
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,27 +1,9 @@
-![HiveBotics](./docs/Hivebotics_Rectangle.jpg)
-
 ## Overview
-This repo is organised into the following main directories:
-1. **communication [deprecated]** : services and launch files to start communication with robot arm and linear actuator 
-2. **descriptions** : xacro and urdf descriptions of robot and environment models
-3. **hw_interface** : custom hw_interface for controlling linear actuator and mycobot pro 320
-4. **moveit_configs**: moveit_configs files for entire robot system and also standalone mycobot pro 320
-5. **planning**: trajectory planning scripts for the robot system
-
-### Description
-This project comprises of a mycobot pro 320 robot arm mounted on a linear actuator with the goal of performing toilet bowl cleaning operation using the robot arm. The end effector is a custom toilet brush design which will manipulate a disposable toilet brush along toilet bowl surfaces.
-
-- **Hardware**: 
-  - Robot Arm - Mycobot Pro 320
-  - Linear Actuator - Motor: J5718HB2401
-- **Moveit Controller**: 
-  `position_controllers/JointTrajectoryController`
-  - `position_controller` is currently used for simplicity because the robot arm api from manufacturer supports joint positions
-  - `velocity_controllers` can be potentially implemented as the arm api can also take in velocity as a fraction of the joints max velocity
-- **Links**:
-  - Robot Arm Official Moveit Package: https://github.com/elephantrobotics/mycobot_ros
-  - Official Python API for Robot Arm: https://github.com/elephantrobotics/pymycobot 
-
+This repo consists of the following ROS packages that define the following:
+1. **mycobot_description** : description of the mycobot_320 mm robot
+2. **mycobot_320_moveit** : moveit planner package
+3. **mycobot_communication** : manufacturer package for communication service and topic
+4. **simulation_models**: custom gazebo models ie. description of a toilet bowl
 
 ## Set Up Instructions
 
@@ -68,31 +50,20 @@ This project comprises of a mycobot pro 320 robot arm mounted on a linear actuat
       - `sudo apt-get install -y ros-noetic-rviz-visual-tools`
 
 ## Startup
-1. To run the motion planning interface with Rviz, run
-    - `roslaunch abluo_1_moveit_config demo.launch `
+1. To view the simulation in Gazebo & Plan Using Rviz, run
+    - `roslaunch mycobot_320_moveit demo_gazebo.launch `
 
 2. To run the motion planning interface with Simulation in Gazebo + RVIZ Planner, run
     - Without a mongodb database
-      - `roslaunch abluo_1_moveit_config demo_gazebo.launch `
+      - `roslaunch mycobot_320_moveit demo_gazebo.launch `
     - With a mongodb database in Rviz
       - Ensure mongodb is installed on the computer
         - Link: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
-      - `roslaunch abluo_1_moveit_config demo_gazebo.launch db:=true`
-3. To start the hardware interface in order to execute motion on the real robot
-    -  a. Launch the linear actuator server
-          `roslaunch linear_actuator_as linear_actuator_topic.launch`
-    -  b. Launch the hardware interface
-          `roslaunch abluo_control abluo_HW_main.launch`
-    -  Your trajectory execution in RVIZ should reflect both in simulation and actual robot
-4. To start the planner scripts, run
-    - `roslaunch planning abluo_motion.launch`
-    -  Note the planner script is still work in progress and is meant to work with the RVIZ Visual Tool Plugin
+      - `roslaunch mycobot_320_moveit demo_gazebo.launch db:=true`
+3. To sync planner with the real robot
+    -  a. `python3 mycobot_320_moveit/scripts/sync_plan.py`
+    -  b. `roslaunch mycobot_communication communication_service.launch`
+    -  Your trajectory executiosn in RVIZ should reflect both in simulation and actual robot
 
 ## Credits
 1. Models used in this project are from https://github.com/elephantrobotics/mycobot_ros
-2. Hardware Interface for mycobot pro 320 was inspired from https://github.com/Tiryoh/nisshan-x_mycobot_moveit/tree/main/scripts
-
-
-## Contact Details
-1. Rishab Patwari - `rishab@hivebotics.tech`
-2. Dung Nguyen - `dung.nguyen.t@hivebotics.tech`

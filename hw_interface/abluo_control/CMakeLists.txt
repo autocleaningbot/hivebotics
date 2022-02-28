@@ -20,6 +20,8 @@ find_package(catkin REQUIRED COMPONENTS
   ros_control_boilerplate
   moveit_ros_planning_interface
   transmission_interface
+  moveit_visual_tools
+  rviz_visual_tools
   tf
 )
 

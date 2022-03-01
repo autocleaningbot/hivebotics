@@ -40,6 +40,6 @@ joint_limits:
     max_acceleration: 0
   robot_arm_mount_to_actuator:
     has_velocity_limits: true
-    max_velocity: 0.1
+    max_velocity: 0.0714
     has_acceleration_limits: false
     max_acceleration: 0

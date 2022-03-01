@@ -1,0 +1,27 @@
+
+  
+<!-- <?xml version="1.0" ?> -->
+<!-- launch-prefix="gdb /-/-args" -->
+<!--output="screen"-->
+<launch>
+
+
+<!--point cloud to paths-->
+<arg name="xEpAxis"                default="0.05" />
+<arg name="yEpAxis"                default="0.05" />
+<!-- <arg name="xEpAxis"                default="0.1" /> -->
+<arg name="wpStepSize"             default="10"/>
+
+
+<node name="test_trajectory_vis"
+			pkg="planning"
+			type="node_test_trajectory_vis"
+			output="screen"
+			>
+
+<param name="xEpAxis"       type="double"       value="$(arg xEpAxis)" />
+<param name="yEpAxis"       type="double"       value="$(arg yEpAxis)" />
+<param name="wpStepSize"    type="int"          value="$(arg wpStepSize)"/>
+
+</node>
+</launch>

@@ -54,3 +54,10 @@ target_link_libraries(abluo_motion
 )
 
 install(TARGETS abluo_motion DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+add_executable(node_test_trajectory_vis
+  src/test_trajectory_vis.cpp
+)
+target_link_libraries(node_test_trajectory_vis
+  ${catkin_LIBRARIES}
+)

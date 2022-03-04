@@ -52,7 +52,7 @@ This project comprises of a mycobot pro 320 robot arm mounted on a linear actuat
 1. Dependencies missed will cause errors in the motion planning interface, when launched. To ensure all the requisite dependencies are installed, run through the franka tutorial installation in the moveit documentations
     - https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html
 
-2. Missing Dependencies
+2. Missing ROS Dependencies
     - If there are dependency packages that are not yet installed
       - Run `rosdep install ${package name}`
     - To install ros warehouse
@@ -66,6 +66,10 @@ This project comprises of a mycobot pro 320 robot arm mounted on a linear actuat
       - `sudo apt-get install ros-noetic-ros-control ros-noetic-ros-controllers`
       - `sudo apt-get install ros-noetic-pilz-industrial-motion-planner`
       - `sudo apt-get install -y ros-noetic-rviz-visual-tools`
+3. Missing Python Dependencies
+    - `pytools`
+    - `open3d`
+    - `math3d`
 
 ## Startup
 1. To run the motion planning interface with Rviz, run

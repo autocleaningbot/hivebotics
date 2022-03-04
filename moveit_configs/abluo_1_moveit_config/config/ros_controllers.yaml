@@ -10,7 +10,7 @@ arm_motion_group_controller:
     - joint6output_to_joint6
   gains:
     robot_arm_mount_to_actuator:
-      p: 350
+      p: 3500
       d: 1
       i: 1
       i_clamp: 1

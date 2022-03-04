@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!-- launch-prefix="gdb /-/-args" -->
+<!--output="screen"-->
+<launch>
+
+
+<!--point cloud to paths-->
+<arg name="upper_surface_name"                default="$(find planning)/data/bowl_upper_surface_only_upward_plan.ply" />
+<arg name="inner_surface_name"                default="$(find planning)/data/bowl_inner_surface.ply" />
+<arg name="path_resolution_deg"               default="10" />
+<arg name="path_resolution_z_inc"             default="0.04" />
+
+
+<arg name="ref_frame_name"           default="world_base" />
+<arg name="ee_frame_name"            default="link6" />
+<arg name="toilet_frame_name"        default="toilet_bowl_base" />
+
+
+<node 
+    name="test_paths"
+    pkg="planning"
+    type="test_paths.py"
+    output="screen"
+>
+
+<param name="upper_surface_name"       type="string"       value="$(arg upper_surface_name)" />
+<param name="inner_surface_name"       type="string"       value="$(arg inner_surface_name)" />
+<param name="path_resolution_deg"      type="double"       value="$(arg path_resolution_deg)" />
+<param name="path_resolution_z_inc"    type="double"       value="$(arg path_resolution_z_inc)" />
+
+<param name="ref_frame_name"      type="string"       value="$(arg ref_frame_name)" />
+<param name="ee_frame_name"       type="string"       value="$(arg ee_frame_name)" />
+<param name="toilet_frame_name"   type="string"       value="$(arg toilet_frame_name)" />
+
+
+</node>
+</launch>

@@ -48,12 +48,12 @@ class MycobotHwInterface:
         self.la_pos = msg.data / 20000
 
     def joint_state_msg_sender(self):
-        self.joint_state_array_[0] = self.la_pos
+        # self.joint_state_array_[0] = self.la_pos
         angles = self.mycobot_.get_radians()
         for index, value in enumerate(angles):
             # if index != 2:
             #     value *= 1
-            self.joint_state_array_[index+1] = value
+            self.joint_state_array_[index] = value
         str = "angles: %s" % angles
         rospy.loginfo(str)
 
@@ -77,11 +77,11 @@ class MycobotHwInterface:
 
         if self.pre_data_list != data_list:
             rospy.loginfo(rospy.get_caller_id() + "%s", msg.data)
-            la_goal = ActuatorGoal()
-            la_goal.targetPos = int(data_list[0]*20000) # 6000 steps approx = 0.3 m => 20,000 steps approx 1m
-            self.la_client.send_goal(la_goal)
+            # la_goal = ActuatorGoal()
+            # la_goal.targetPos = int(data_list[0]*20000) # 6000 steps approx = 0.3 m => 20,000 steps approx 1m
+            # self.la_client.send_goal(la_goal)
 
-            self.mycobot_.send_radians(data_list[1:7], 40)
+            self.mycobot_.send_radians(data_list[0:6], 80)
             self.pre_data_list = []
             for value in data_list:
                 self.pre_data_list.append(value)

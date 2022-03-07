@@ -108,6 +108,8 @@ int main(int argc, char** argv)
   // target_pose2.position.z = 0.414383;
 //   target_pose2.position.z = 0.4;
 //   waypoints.push_back(target_pose2); //Push initial pose
+  //Push intial pose
+  waypoints.push_back(curr_pos.pose);
 
   for (int i = 0; i <= 360; i+= waypoint_step_size) {
     target_pose2.position.x = a * cos(i*PI/180.0) + curr_pos.pose.position.x;
@@ -144,34 +146,34 @@ int main(int argc, char** argv)
 
   moveit_msgs::RobotTrajectory::Ptr trajectory(new moveit_msgs::RobotTrajectory);
   const double jump_threshold = 0.0;
-  const double eef_step = 0.001;
+  const double eef_step = 0.01;
   double fraction = move_group.computeCartesianPath(waypoints, eef_step, jump_threshold, *trajectory);
   ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path) (%.2f%% acheived)", fraction * 100.0);
-  hivebotics::printRobotTrajectoryMsg(*trajectory);
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to execute the trajectory");
+  // hivebotics::printRobotTrajectoryMsg(*trajectory);
+  // visual_tools.prompt("[1] Press 'next' in the RvizVisualToolsGui window to plan the trajectory & go to 1st wp");
   
 
-  // go to first waypoint  
-  std::vector<geometry_msgs::Pose> firstWaypoint;
-  firstWaypoint.push_back(waypoints[0]);
+  // // go to first waypoint  
+  // std::vector<geometry_msgs::Pose> firstWaypoint;
+  // firstWaypoint.push_back(waypoints[0]);
 
-  trajectory = moveit_msgs::RobotTrajectory::Ptr(new moveit_msgs::RobotTrajectory());  
-  fraction = move_group.computeCartesianPath(firstWaypoint, eef_step, jump_threshold, *trajectory);
-  hivebotics::printRobotTrajectoryMsg(*trajectory);
+  // trajectory = moveit_msgs::RobotTrajectory::Ptr(new moveit_msgs::RobotTrajectory());  
+  // fraction = move_group.computeCartesianPath(firstWaypoint, eef_step, jump_threshold, *trajectory);
+  // hivebotics::printRobotTrajectoryMsg(*trajectory);
   
+  // move_group.execute(*trajectory);
+
+  // // execute rest of trajectory
+  // trajectory = moveit_msgs::RobotTrajectory::Ptr(new moveit_msgs::RobotTrajectory());  
+  
+  // fraction = move_group.computeCartesianPath(waypoints, eef_step, jump_threshold, *trajectory);
+  // ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path) (%.2f%% acheived)", fraction * 100.0);
+  hivebotics::printRobotTrajectoryMsg(*trajectory);
+  visual_tools.prompt("[2] Press 'next' in the RvizVisualToolsGui window to execute the trajectory");    
+
   move_group.execute(*trajectory);
 
-  // execute rest of trajectory
-  trajectory = moveit_msgs::RobotTrajectory::Ptr(new moveit_msgs::RobotTrajectory());  
-  
-  fraction = move_group.computeCartesianPath(waypoints, eef_step, jump_threshold, *trajectory);
-  ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path) (%.2f%% acheived)", fraction * 100.0);
-  hivebotics::printRobotTrajectoryMsg(*trajectory);
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to execute the trajectory");    
-
-  move_group.execute(*trajectory);
-
-
+  ROS_WARN("MOTION IS COMPLETED, SHUTTING DOWN");
   ros::shutdown();
   return 0;
 }

@@ -132,7 +132,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="robot_arm_mount_to_actuator" type="prismatic">
+  <joint name="robot_arm_mount_to_actuator" type="fixed">
     <origin xyz="0.30617 0.70397 0.49087" rpy="0 0 0" />
     <parent link="base_link" />
     <child link="robot_arm_mount" />

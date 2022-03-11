@@ -28,15 +28,14 @@
 #define motorInterfaceType 1
 //include servo and define pin
 #include <Servo.h>
+#define servoPin 7 //toilet brush servo pin
 //define for dc motors
-#define enA 10 //pump motor speed
-#define in1 9 //pump motor digital pin 1
-#define in2 8 //pump motor digital pin 2
-#define in3 5 //brush motor clockwise
-#define in4 4 //brush motor anti-clockwise
-#define enB 3 //brush motor speed
-
-const byte servoPin=6; //toilet brush servo pin
+#define enA 5 //brush motor speed
+#define in1 22 //brush motor clockwise
+#define in2 24 //brush motor anti-clockwise 
+#define in3 30 //pump motor digital pin 1 
+#define in4 31 //pump motor digital pin 2
+#define enB 4 //pump motor speed
 
 // Init ROS Helpers
 ros::NodeHandle nh;
@@ -109,7 +108,7 @@ void brush_servo_cb(const std_msgs::Int32& cmd_msgs){
   pub_brush_servo.publish(&brush_servo_feedback_msgs);
 }
 
-////pump motor <!-- speed message between 0 and 255
+//pump motor <!-- speed message between 0 and 255
 void pump_motor_cb(const std_msgs::Int32& cmd_msgs){
   nh.loginfo("Pump speed received");
   int input = cmd_msgs.data;
@@ -117,22 +116,20 @@ void pump_motor_cb(const std_msgs::Int32& cmd_msgs){
   sprintf(output, "pump motor speed = %d", input);
   nh.loginfo(output);
   //run motor pump, motor is off for input smaller than 50
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
   if (input < 50){
-    digitalWrite(in1, HIGH);
-    digitalWrite(in2, HIGH);
+    analogWrite(enB, 0);
     pump_speed_feedback_msgs.data = 0;
   } else {
-    digitalWrite(in1, HIGH);
-    digitalWrite(in2, LOW);
-    analogWrite(enA, input/2);
-    delay(250);
+    analogWrite(enB, input/2);
     pump_speed_feedback_msgs.data = input; 
   }
   //Publish speed
   pub_pump_motor.publish(&pump_speed_feedback_msgs);
 }
 
-////brush dc motor <!-- speed message between 0 and 255
+//brush dc motor <!-- speed message between 0 and 255
 void brush_dc_cb(const std_msgs::Int32& cmd_msgs){
   nh.loginfo("Brush dcm speed received");
   int input = cmd_msgs.data;
@@ -140,17 +137,13 @@ void brush_dc_cb(const std_msgs::Int32& cmd_msgs){
   sprintf(output, "brush dc motor speed = %d", input);
   nh.loginfo(output);
   //run brush dc motor, motor is off for input smaller than 50
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
   if (input < 50){
-    digitalWrite(in3, HIGH);
-    digitalWrite(in4, LOW);
-    analogWrite(enB, 0);
-    delay(250);
+    analogWrite(enA, 0);
     brush_dc_feedback_msgs.data = 0;
   } else {
-    digitalWrite(in3, HIGH);
-    digitalWrite(in4, LOW);
-    analogWrite(enB, input);
-    delay(250);
+    analogWrite(enA, input);
     brush_dc_feedback_msgs.data = input;
   }
   //Publish speed
@@ -160,7 +153,7 @@ void brush_dc_cb(const std_msgs::Int32& cmd_msgs){
 //Create Subsciber for motors
 ros::Subscriber<std_msgs::Int32> sub("servo", &servo_cb); //linAct stepper
 ros::Subscriber<std_msgs::Int32> sub_brush_servo("brush_servo", &brush_servo_cb); //brush servo 
-//ros::Subscriber<std_msgs::Int32> sub_pump_motor("pump_motor", &pump_motor_cb); //pump motor
+ros::Subscriber<std_msgs::Int32> sub_pump_motor("pump_motor", &pump_motor_cb); //pump motor
 ros::Subscriber<std_msgs::Int32> sub_brush_dc("brush_dc", &brush_dc_cb); //brush dc motor
 
 // Move Up Actuator Till Callibrate - Attach Code to Cause Interrupt
@@ -187,16 +180,16 @@ void setup() {
   nh.advertise(pub_brush_servo);
   
   //Pump Motor
-  pinMode(enA, OUTPUT);
-  pinMode(in1, OUTPUT);
-  pinMode(in2, OUTPUT);
- nh.subscribe(sub_pump_motor); 
- nh.advertise(pub_pump_motor);
-  
-  //Brush DC motor
   pinMode(enB, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
+  nh.subscribe(sub_pump_motor); 
+  nh.advertise(pub_pump_motor);
+  
+  //Brush DC motor
+  pinMode(enA, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
   nh.subscribe(sub_brush_dc); 
   nh.advertise(pub_brush_dc);
 }

@@ -1,6 +1,6 @@
 #include <abluo_control/abluo_hw.h>
 
-MyRobot::MyRobot(): nh_(""), private_nh_("~")
+MyRobot::MyRobot(ros::NodeHandle &root_nh) : nh_(root_nh), private_nh_("~"), priv_spinner(1)
 {
   hardware_interface::JointStateHandle state_handle_0("robot_arm_mount_to_actuator", &pos_[0], &vel_[0], &eff_[0]);
   jnt_state_interface.registerHandle(state_handle_0);
@@ -34,30 +34,57 @@ MyRobot::MyRobot(): nh_(""), private_nh_("~")
   jnt_position_interface.registerHandle(eff_handle_6);
   registerInterface(&jnt_position_interface);
 
-  joint_subscriber_ = nh_.subscribe("/joint_states_array", 10, &MyRobot::jointSubscribeCallback, this);
-  cmd_publisher_ = nh_.advertise<std_msgs::Float32MultiArray>("/joint_cmd_array", 10);
+  init(nh_, private_nh_);
+
+  // joint_subscriber_ = nh_.subscribe("/joint_states_array", 10, &MyRobot::jointSubscribeCallback, this);
+  joint_subscriber_ = nh_.subscribe("/joint_states_array", 1, &MyRobot::jointSubscribeCallback, this);
+
+  // cmd_publisher_ = nh_.advertise<std_msgs::Float32MultiArray>("/joint_cmd_array", 10);
+  cmd_publisher_ = nh_.advertise<abluo_control::armCmd>("/joint_cmd_array", 1);
+
+  priv_spinner.start();
 }
 
-void MyRobot::jointSubscribeCallback(const std_msgs::Float32MultiArray::ConstPtr &msg){
-  for(int i=0; i<7; i++){
-    pos_[i] = msg->data[i];
+void MyRobot::jointSubscribeCallback(const abluo_control::abluoTelemetry::ConstPtr &msg)
+{
+
+  // float32 lin_act_pos #val
+  // float32 lin_act_vel
+  // float32[6] joint_pos #degrees
+  // float32[6] joint_vel #deg/s
+
+  pos_[0] = msg->lin_act_pos;
+  vel_[0] = msg->lin_act_vel;
+
+  for (int i = 1; i < 7; ++i)
+  {
+    pos_[i] = msg->joint_pos[i];
+    vel_[i] = msg->joint_vel[i];
   }
 }
 
 void MyRobot::read(ros::Time time, ros::Duration period)
 {
-  for(int i=0; i<7; i++){
-    vel_[i] = 0;
-    eff_[i] = 0;
-  }
+  ros::spinOnce();
+  // for (int i = 0; i < 7; i++)
+  // {
+  //   vel_[i] = 0;
+  //   eff_[i] = 0;
+  // }
 }
 
 void MyRobot::write(ros::Time time, ros::Duration period)
 {
-  std_msgs::Float32MultiArray commands;
-  commands.data.resize(7);
-  for(int i=0; i<7; i++){
-    commands.data[i] = cmd_[i];
+  // float32 lin_act_pos #val
+  // float32 lin_act_vel
+  // float32[6] joint_pos #degrees
+  // float32[6] joint_vel #deg/s
+  
+  commands.lin_act_pos = cmd_[0];
+
+  for (int i = 1; i < 7; ++i)
+  {
+    commands.joint_pos[i-1] = cmd_[i];
   }
   cmd_publisher_.publish(commands);
 }

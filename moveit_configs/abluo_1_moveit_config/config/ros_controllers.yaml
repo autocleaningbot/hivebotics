@@ -1,5 +1,6 @@
 arm_motion_group_controller:
   type: position_controllers/JointTrajectoryController
+  action_ns: joint_trajectory_action
   joints:
     - robot_arm_mount_to_actuator
     - joint2_to_joint1

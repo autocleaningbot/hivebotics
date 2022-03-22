@@ -10,9 +10,9 @@ controller_list:
       - joint4_to_joint3
       - joint5_to_joint4
       - joint6_to_joint5
-  - name: scrubbing_tool_controller
-    action_ns: follow_joint_trajectory
-    type: FollowJointTrajectory
-    default: True
-    joints:
-      - joint6output_to_joint6
+  # - name: scrubbing_tool_controller
+  #   action_ns: follow_joint_trajectory
+  #   type: FollowJointTrajectory
+  #   default: True
+  #   joints:
+  #     - joint6output_to_joint6

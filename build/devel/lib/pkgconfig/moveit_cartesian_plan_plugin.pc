@@ -1,0 +1,8 @@
+prefix=/home/dell/work/ros_ws/hivebotics/src/build/devel
+
+Name: moveit_cartesian_plan_plugin
+Description: Description of moveit_cartesian_plan_plugin
+Version: 0.0.0
+Cflags: -I/home/dell/work/ros_ws/hivebotics/src/3rd_party/moveit_cartesian_plan_plugin/include -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include
+Libs: -L${prefix}/lib -lmoveit_cartesian_plan_plugin
+Requires: interactive_markers pluginlib roscpp rqt_gui rviz rqt_gui_cpp visualization_msgs

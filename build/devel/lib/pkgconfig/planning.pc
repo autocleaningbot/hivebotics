@@ -1,0 +1,8 @@
+prefix=/home/dell/work/ros_ws/hivebotics/src/build/devel
+
+Name: planning
+Description: Description of planning
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs moveit_visual_tools moveit_ros_move_group moveit_ros_planning_interface

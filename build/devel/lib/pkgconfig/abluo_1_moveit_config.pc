@@ -1,0 +1,8 @@
+prefix=/home/dell/work/ros_ws/hivebotics/src/build/devel
+
+Name: abluo_1_moveit_config
+Description: Description of abluo_1_moveit_config
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

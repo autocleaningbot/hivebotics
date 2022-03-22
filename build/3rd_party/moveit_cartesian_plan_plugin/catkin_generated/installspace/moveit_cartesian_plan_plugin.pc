@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: moveit_cartesian_plan_plugin
+Description: Description of moveit_cartesian_plan_plugin
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lmoveit_cartesian_plan_plugin
+Requires: interactive_markers pluginlib roscpp rqt_gui rviz rqt_gui_cpp visualization_msgs

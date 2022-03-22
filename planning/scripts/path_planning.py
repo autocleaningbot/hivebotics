@@ -1,5 +1,6 @@
 from datetime import datetime
 import copy
+import math
 import open3d
 import numpy as np
 
@@ -8,6 +9,67 @@ from geometry_msgs.msg import PoseArray, Pose
 import tf
 
 import math3d
+
+import pdb
+
+# def median_filter_for_yaw(path_poses_arr):
+#     #path_poses_arr = PoseArray()
+#     #pdb.set_trace()
+#     window_size = 3
+#     # yaw_list = []
+#     proj_list = []
+#     tmp_pose_arr = []
+#     path_poses_arr_tmp = copy.deepcopy(path_poses_arr)
+#     # TODO automate it
+#     path_poses_arr_tmp.poses.insert(0, path_poses_arr.poses[-1])
+#     path_poses_arr_tmp.poses.insert(0, path_poses_arr.poses[-2])
+#     path_poses_arr_tmp.poses.append(path_poses_arr.poses[1])
+#     path_poses_arr_tmp.poses.append(path_poses_arr.poses[2])
+    
+#     for ii, pose in enumerate(path_poses_arr.poses):
+#         for kk in range(0, window_size):
+#             tmp_pose_arr.append(path_poses_arr_tmp.poses[ii - (kk - int(window_size/2))])
+
+#         ii_q_tmp = math3d.UnitQuaternion(pose.orientation.w, pose.orientation.x, pose.orientation.y, pose.orientation.z)
+#         ii_o_tmp = math3d.Orientation(ii_q_tmp)
+#         ii_o_tmp_x = ii_o_tmp.matrix[0,0:3]        
+        
+#         for jj, tmp_pose in enumerate(tmp_pose_arr):
+#             #print("tmp_pose:", tmp_pose)
+#             jj_q_tmp = math3d.UnitQuaternion(tmp_pose.orientation.w, tmp_pose.orientation.x, tmp_pose.orientation.y, tmp_pose.orientation.z)
+#             jj_o_tmp = math3d.Orientation(jj_q_tmp)
+#             jj_o_tmp_x = jj_o_tmp.matrix[0,0:3]
+            
+#             proj_list.append(np.dot(ii_o_tmp_x,jj_o_tmp_x))
+#             # yaw_list.append(o_tmp.to_euler('zyx')[0])
+            
+#         proj = np.arctan(proj_list)
+#         proj_max_idx = np.argmax([proj > np.pi/4])
+
+#         print(proj_list)
+#         # proj_list.sort()
+#         # print(proj_list)
+
+
+#         # mid_val = yaw_list[int(window_size/2)]
+
+#         if proj_max_idx:
+
+
+#         q_tmp = math3d.UnitQuaternion(pose.orientation.w, pose.orientation.x, pose.orientation.y, pose.orientation.z)
+#         o_tmp = math3d.Orientation(q_tmp)
+#         ypr = o_tmp.to_euler('zyx')
+#         o_tmp = o_tmp.new_euler((mid_val, ypr[1], ypr[2]), 'ZYX')
+
+#         path_poses_arr.poses[ii].orientation.w = o_tmp.quaternion.s
+#         path_poses_arr.poses[ii].orientation.x = o_tmp.quaternion.x
+#         path_poses_arr.poses[ii].orientation.y = o_tmp.quaternion.y
+#         path_poses_arr.poses[ii].orientation.z = o_tmp.quaternion.z
+
+#         del yaw_list[:]
+#         del tmp_pose_arr[:]
+
+#     return path_poses_arr
 
 
 def plan_path_pts(ptcloud_file_name, path_resolution_deg, path_resolution_z_inc, prefix_name=""):
@@ -174,6 +236,20 @@ def path_pts_to_poses(path_pts, ref_frame_name, ee_frame_name, toilet_frame_name
 
     tot_pts = len(path_pts_world.points)
 
+    # making first pose
+    rot_m = world_to_ee.array[0:3, 0:3]
+    y_axis_toilet = rot_m[0:,1]
+
+    # constraint the x-axis of the paht
+    z_axis_path = path_pts_world.normals[0]
+    x_axis_path = np.cross(y_axis_toilet, z_axis_path)
+    y_axis_path = np.cross(z_axis_path, x_axis_path)
+
+    o_first = math3d.Orientation(
+        np.column_stack((x_axis_path, y_axis_path, z_axis_path))
+        ) 
+
+
     for pt, nl in zip(path_pts_world.points, path_pts_world.normals):
         # print(pt, nl)
 
@@ -187,13 +263,17 @@ def path_pts_to_poses(path_pts, ref_frame_name, ee_frame_name, toilet_frame_name
         rot_m = world_to_ee.array[0:3, 0:3]
         y_axis_toilet = rot_m[0:,1]
 
-        z_axis_path = nl
-        x_axis_path = np.cross(y_axis_toilet, z_axis_path)
+        # constraint the x-axis of the path
+        z_axis_path = nl / np.linalg.norm(nl)
+        x_axis_path = np.cross(y_axis_toilet, z_axis_path) # o_first.array[0:,0] / np.linalg.norm(o_first.array[0:,0]) # np.cross(y_axis_toilet, z_axis_path)
+        x_axis_path = x_axis_path / np.linalg.norm(x_axis_path)
+        print("x_axis_path: ", x_axis_path)
         y_axis_path = np.cross(z_axis_path, x_axis_path)
+        y_axis_path = y_axis_path / np.linalg.norm(y_axis_path)
 
         o_tmp = math3d.Orientation(
-            np.column_stack((x_axis_path, y_axis_path, z_axis_path)
-            ))
+            np.column_stack((x_axis_path, y_axis_path, z_axis_path))
+            )
         
         # print(
         #     pt[0], pt[1], pt[2],
@@ -210,12 +290,15 @@ def path_pts_to_poses(path_pts, ref_frame_name, ee_frame_name, toilet_frame_name
         path_pose.orientation.y = o_tmp.quaternion.y
         path_pose.orientation.z = o_tmp.quaternion.z
         
-        print(path_pose)
+        # print(path_pose)
 
         path_poses_arr.poses.append(path_pose)
 
 
-    for ii, pose in enumerate(path_poses_arr.poses):
-        print(ii, pose)
+    # for ii, pose in enumerate(path_poses_arr.poses):
+    #     print(ii, pose)
+
+
+    # path_poses_arr = median_filter_for_yaw(path_poses_arr)
 
     return path_poses_arr

@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: abluo_control
+Description: Description of abluo_control
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp hardware_interface transmission_interface controller_manager message_runtime

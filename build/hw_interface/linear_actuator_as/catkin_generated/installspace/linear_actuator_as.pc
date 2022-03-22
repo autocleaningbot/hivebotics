@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: linear_actuator_as
+Description: Description of linear_actuator_as
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: rospy

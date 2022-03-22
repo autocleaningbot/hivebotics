@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: abluo_urdf_1
+Description: Description of abluo_urdf_1
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

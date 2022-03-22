@@ -160,7 +160,7 @@ int main(int argc, char** argv)
   hivebotics::printRobotTrajectoryMsg(*trajectory);
   
   move_group.execute(*trajectory);
-
+  
   // execute rest of trajectory
   trajectory = moveit_msgs::RobotTrajectory::Ptr(new moveit_msgs::RobotTrajectory());  
   

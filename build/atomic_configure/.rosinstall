@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/dell/work/ros_ws/hivebotics/src/build/devel/setup.sh

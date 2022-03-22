@@ -1,0 +1,8 @@
+prefix=/home/dell/work/ros_ws/hivebotics/src/build/devel
+
+Name: brush_swapping_stick
+Description: Description of brush_swapping_stick
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

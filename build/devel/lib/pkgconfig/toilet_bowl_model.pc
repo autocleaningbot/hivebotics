@@ -1,0 +1,8 @@
+prefix=/home/dell/work/ros_ws/hivebotics/src/build/devel
+
+Name: toilet_bowl_model
+Description: Description of toilet_bowl_model
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

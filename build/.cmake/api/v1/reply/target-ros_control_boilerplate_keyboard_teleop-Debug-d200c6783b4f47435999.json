@@ -1,0 +1,441 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "devel/lib/ros_control_boilerplate/keyboard_teleop"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"_install",
+			"install",
+			"add_definitions",
+			"include",
+			"find_package",
+			"configure_shared_library_build_settings",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"hw_interface/ros_control_boilerplate/CMakeLists.txt",
+			"/opt/ros/noetic/share/catkin/cmake/custom_install.cmake",
+			"/opt/ros/noetic/share/rosconsole/cmake/rosconsole-extras.cmake",
+			"/opt/ros/noetic/share/rosconsole/cmake/rosconsoleConfig.cmake",
+			"/opt/ros/noetic/share/roscpp/cmake/roscppConfig.cmake",
+			"/opt/ros/noetic/share/actionlib/cmake/actionlibConfig.cmake",
+			"/opt/ros/noetic/share/catkin/cmake/catkinConfig.cmake",
+			"/opt/ros/noetic/share/catkin/cmake/tools/libraries.cmake",
+			"/opt/ros/noetic/share/catkin/cmake/all.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 134,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 156,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 13,
+				"parent" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"file" : 6,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 6,
+				"line" : 76,
+				"parent" : 5
+			},
+			{
+				"file" : 5,
+				"parent" : 6
+			},
+			{
+				"command" : 5,
+				"file" : 5,
+				"line" : 197,
+				"parent" : 7
+			},
+			{
+				"file" : 4,
+				"parent" : 8
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 197,
+				"parent" : 9
+			},
+			{
+				"file" : 3,
+				"parent" : 10
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 222,
+				"parent" : 11
+			},
+			{
+				"file" : 2,
+				"parent" : 12
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 12,
+				"parent" : 13
+			},
+			{
+				"file" : 9
+			},
+			{
+				"command" : 5,
+				"file" : 9,
+				"line" : 58,
+				"parent" : 15
+			},
+			{
+				"file" : 6,
+				"parent" : 16
+			},
+			{
+				"command" : 4,
+				"file" : 6,
+				"line" : 20,
+				"parent" : 17
+			},
+			{
+				"file" : 8,
+				"parent" : 18
+			},
+			{
+				"command" : 6,
+				"file" : 8,
+				"line" : 174,
+				"parent" : 19
+			},
+			{
+				"command" : 3,
+				"file" : 7,
+				"line" : 18,
+				"parent" : 20
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 8,
+				"parent" : 13
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 58,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g  "
+				},
+				{
+					"fragment" : "-std=c++11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 14,
+					"define" : "ROSCONSOLE_BACKEND_LOG4CXX"
+				},
+				{
+					"backtrace" : 21,
+					"define" : "ROS_BUILD_SHARED_LIBS=1"
+				},
+				{
+					"backtrace" : 22,
+					"define" : "ROS_PACKAGE_NAME=\"ros_control_boilerplate\""
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 23,
+					"path" : "/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/include"
+				},
+				{
+					"backtrace" : 23,
+					"path" : "/opt/ros/noetic/include"
+				},
+				{
+					"backtrace" : 23,
+					"path" : "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
+				},
+				{
+					"backtrace" : 23,
+					"path" : "/usr/include/eigen3"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"id" : "ros_control_boilerplate_keyboard_teleop::@9257b1a010874f3fc2e4",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 3,
+				"path" : "lib/ros_control_boilerplate"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "/usr/local"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-rdynamic",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/opt/ros/noetic/lib:",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libactionlib.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libcontrol_toolbox.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/librealtime_tools.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libcontroller_manager.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/librosparam_shortcuts.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libtransmission_interface_parser.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libtransmission_interface_loader.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libtransmission_interface_loader_plugins.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/liburdf.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lurdfdom_sensor",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lurdfdom_model_state",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lurdfdom_model",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lurdfdom_world",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ltinyxml",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libclass_loader.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lPocoFoundation",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libroslib.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/librospack.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpython3.8",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ltinyxml2",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/librosconsole_bridge.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libroscpp.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/librosconsole.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/librosconsole_log4cxx.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/librosconsole_backend_interface.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-llog4cxx",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libroscpp_serialization.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libxmlrpcpp.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/librostime.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/ros/noetic/lib/libcpp_common.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "ros_control_boilerplate_keyboard_teleop",
+	"nameOnDisk" : "keyboard_teleop",
+	"paths" : 
+	{
+		"build" : "hw_interface/ros_control_boilerplate",
+		"source" : "hw_interface/ros_control_boilerplate"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "hw_interface/ros_control_boilerplate/src/tools/keyboard_teleop.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

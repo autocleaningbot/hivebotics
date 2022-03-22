@@ -1,0 +1,10 @@
+# This Passes Joint Angles to the server which plans and calls the motion
+# Goal
+int32[] joint_values
+---
+# Result
+int32[] joint_values
+bool success
+---
+# Feedback
+int32[] joint_values

@@ -7,11 +7,15 @@
 #include <vector>
 #include <std_msgs/Float32MultiArray.h>
 
+#include <ros/ros.h>
+
+#include "abluo_control/abluoTelemetry.h"
+#include "abluo_control/armCmd.h"
 
 class MyRobot : public hardware_interface::RobotHW
 {
 public:
-    MyRobot();
+    MyRobot(ros::NodeHandle &root_nh);
 //    bool init(ros::NodeHandle &root_nh, ros::NodeHandle &robot_hw_nh);
 
     ros::Time getTime() const { return ros::Time::now(); }
@@ -19,6 +23,7 @@ public:
 
     void read(ros::Time, ros::Duration);
     void write(ros::Time, ros::Duration);
+
 
 private:
   ros::NodeHandle nh_;
@@ -39,12 +44,18 @@ private:
 
   // Data member array to store the controller commands which are sent to the
   // robot's resources (joints, actuators)
-    double cmd_[6];
+    double cmd_[7];
 
   // Data member arrays to store the state of the robot's resources (joints, sensors)
-    double pos_[6] = {};
-    double vel_[6] = {};
-    double eff_[6] = {};
+    double pos_[7];// = {};
+    double vel_[7];// = {};
+    double eff_[7];// = {};
 
-  void jointSubscribeCallback(const std_msgs::Float32MultiArray::ConstPtr &msg);
+    // cmd msg
+    abluo_control::armCmd commands;  
+
+    ros::AsyncSpinner priv_spinner;
+
+
+  void jointSubscribeCallback(const abluo_control::abluoTelemetry::ConstPtr &msg);
 };

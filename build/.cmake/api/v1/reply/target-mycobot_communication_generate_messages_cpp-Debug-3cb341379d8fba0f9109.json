@@ -1,0 +1,304 @@
+{
+	"backtrace" : 4,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"include",
+			"generate_messages",
+			"add_dependencies"
+		],
+		"files" : 
+		[
+			"build/communication/mycobot_communication/cmake/mycobot_communication-genmsg.cmake",
+			"/opt/ros/noetic/share/genmsg/cmake/genmsg-extras.cmake",
+			"communication/mycobot_communication/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 72,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 307,
+				"parent" : 1
+			},
+			{
+				"file" : 0,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 167,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 699,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 194,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 196,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 186,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 182,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 180,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 176,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 190,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 178,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 174,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 188,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 192,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 184,
+				"parent" : 3
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 5,
+			"id" : "std_msgs_generate_messages_cpp::@e04c5602ad6a851ab2c3"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "_mycobot_communication_generate_messages_check_deps_GripperStatus::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 7,
+			"id" : "_mycobot_communication_generate_messages_check_deps_PumpStatus::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 8,
+			"id" : "_mycobot_communication_generate_messages_check_deps_GetAngles::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 9,
+			"id" : "_mycobot_communication_generate_messages_check_deps_MycobotGripperStatus::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 10,
+			"id" : "_mycobot_communication_generate_messages_check_deps_MycobotSetCoords::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 11,
+			"id" : "_mycobot_communication_generate_messages_check_deps_MycobotCoords::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "_mycobot_communication_generate_messages_check_deps_GetCoords::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 13,
+			"id" : "_mycobot_communication_generate_messages_check_deps_MycobotSetAngles::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 14,
+			"id" : "_mycobot_communication_generate_messages_check_deps_MycobotAngles::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 15,
+			"id" : "_mycobot_communication_generate_messages_check_deps_SetAngles::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 16,
+			"id" : "_mycobot_communication_generate_messages_check_deps_SetCoords::@220f6a5544653705c84f"
+		},
+		{
+			"backtrace" : 17,
+			"id" : "_mycobot_communication_generate_messages_check_deps_MycobotPumpStatus::@220f6a5544653705c84f"
+		}
+	],
+	"id" : "mycobot_communication_generate_messages_cpp::@220f6a5544653705c84f",
+	"name" : "mycobot_communication_generate_messages_cpp",
+	"paths" : 
+	{
+		"build" : "communication/mycobot_communication",
+		"source" : "communication/mycobot_communication"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 4,
+			"isGenerated" : true,
+			"path" : "build/communication/mycobot_communication/CMakeFiles/mycobot_communication_generate_messages_cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/communication/mycobot_communication/CMakeFiles/mycobot_communication_generate_messages_cpp.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/MycobotAngles.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/MycobotCoords.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/MycobotSetAngles.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/MycobotSetCoords.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/MycobotGripperStatus.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/MycobotPumpStatus.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/GetAngles.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/SetAngles.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/GetCoords.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/SetCoords.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/GripperStatus.h.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/devel/include/mycobot_communication/PumpStatus.h.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

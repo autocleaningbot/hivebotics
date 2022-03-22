@@ -1,0 +1,2 @@
+set(cartesian_impedance_msgs_MESSAGE_FILES "msg/CartesianStiffness.msg;msg/CartesianDamping.msg;msg/MaxCartesianVelocity.msg;msg/MaxControlForce.msg;msg/MaxPathDeviation.msg;msg/NullSpace.msg;msg/CartesianImpedanceErrorCodes.msg;msg/MaxCtrlForceExceeded.msg;msg/SetCartesianImpedance.msg;msg/SetCartesianForceCtrl.msg;msg/CartesianForceCtrlErrorCodes.msg")
+set(cartesian_impedance_msgs_SERVICE_FILES "srv/ConfigureCartesianImpedance.srv;srv/ConfigureForceControl.srv")

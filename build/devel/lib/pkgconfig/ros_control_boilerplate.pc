@@ -1,0 +1,8 @@
+prefix=/home/dell/work/ros_ws/hivebotics/src/build/devel
+
+Name: ros_control_boilerplate
+Description: Description of ros_control_boilerplate
+Version: 0.6.1
+Cflags: -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/include
+Libs: -L${prefix}/lib -lgeneric_hw_control_loop -lgeneric_hw_interface -lsim_hw_interface
+Requires: actionlib control_msgs control_toolbox controller_manager hardware_interface joint_limits_interface roscpp rosparam_shortcuts sensor_msgs std_msgs trajectory_msgs transmission_interface urdf

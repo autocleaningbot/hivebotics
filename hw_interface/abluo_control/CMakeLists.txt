@@ -30,16 +30,16 @@ find_package(catkin REQUIRED COMPONENTS
 ################################################
 
 ## Generate messages in the 'msg' folder
-# add_message_files(FILES
-#   abluoTelemetry.msg
-#   armCmd.msg
-# )
+add_message_files(FILES
+  abluoTelemetry.msg
+  armCmd.msg
+)
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 
 ###################################
@@ -47,7 +47,12 @@ find_package(catkin REQUIRED COMPONENTS
 ###################################
 catkin_package(
  INCLUDE_DIRS include
- CATKIN_DEPENDS roscpp hardware_interface transmission_interface controller_manager message_runtime
+ CATKIN_DEPENDS 
+    roscpp 
+    hardware_interface 
+    transmission_interface 
+    controller_manager 
+    message_runtime
 )
 
 ###########
@@ -64,12 +69,22 @@ include_directories(
 add_executable(abluo_hw_main
   # include/abluo_control/abluo_hw.h
   src/abluo_hw.cpp
-  src/abluo_control.cpp
+  src/abluo_hw_main.cpp
 )
 add_dependencies(abluo_hw_main ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(abluo_hw_main
   ${catkin_LIBRARIES}
 )
+
+
+add_executable(abluo_sim_echo_node
+  # include/abluo_control/abluo_hw.h
+  src/abluo_sim_echo.cpp
+)
+target_link_libraries(abluo_sim_echo_node
+  ${catkin_LIBRARIES}
+)
+
 
 # add_executable(abluo_sim_echo
 #   src/abluo_sim_echo.cpp

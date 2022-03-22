@@ -1,5 +1,4 @@
-# float32 lin_act_pos
-# float32 lin_act_vel
-float64[6] angle #deg
-# float32[7] vel #deg/s
-uint32 msg_ctr # count sent msgs to detected missed messages
+float32 lin_act_pos
+float32 lin_act_vel
+float32[6] joint_pos
+float32[6] joint_vel

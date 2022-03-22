@@ -1,0 +1,33 @@
+
+(cl:in-package :asdf)
+
+(defsystem "robot_hw_interface-msg"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils :actionlib_msgs-msg
+               :std_msgs-msg
+)
+  :components ((:file "_package")
+    (:file "LinearActuatorPose" :depends-on ("_package_LinearActuatorPose"))
+    (:file "_package_LinearActuatorPose" :depends-on ("_package"))
+    (:file "MycobotAngles" :depends-on ("_package_MycobotAngles"))
+    (:file "_package_MycobotAngles" :depends-on ("_package"))
+    (:file "RobotUpdateAction" :depends-on ("_package_RobotUpdateAction"))
+    (:file "_package_RobotUpdateAction" :depends-on ("_package"))
+    (:file "RobotUpdateActionFeedback" :depends-on ("_package_RobotUpdateActionFeedback"))
+    (:file "_package_RobotUpdateActionFeedback" :depends-on ("_package"))
+    (:file "RobotUpdateActionGoal" :depends-on ("_package_RobotUpdateActionGoal"))
+    (:file "_package_RobotUpdateActionGoal" :depends-on ("_package"))
+    (:file "RobotUpdateActionResult" :depends-on ("_package_RobotUpdateActionResult"))
+    (:file "_package_RobotUpdateActionResult" :depends-on ("_package"))
+    (:file "RobotUpdateFeedback" :depends-on ("_package_RobotUpdateFeedback"))
+    (:file "_package_RobotUpdateFeedback" :depends-on ("_package"))
+    (:file "RobotUpdateGoal" :depends-on ("_package_RobotUpdateGoal"))
+    (:file "_package_RobotUpdateGoal" :depends-on ("_package"))
+    (:file "RobotUpdateResult" :depends-on ("_package_RobotUpdateResult"))
+    (:file "_package_RobotUpdateResult" :depends-on ("_package"))
+    (:file "ToiletBrush" :depends-on ("_package_ToiletBrush"))
+    (:file "_package_ToiletBrush" :depends-on ("_package"))
+    (:file "ToolUpdate" :depends-on ("_package_ToolUpdate"))
+    (:file "_package_ToolUpdate" :depends-on ("_package"))
+    (:file "WaterPump" :depends-on ("_package_WaterPump"))
+    (:file "_package_WaterPump" :depends-on ("_package"))
+  ))

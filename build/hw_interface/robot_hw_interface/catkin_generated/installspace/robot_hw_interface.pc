@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: robot_hw_interface
+Description: Description of robot_hw_interface
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp actionlib actionlib_msgs

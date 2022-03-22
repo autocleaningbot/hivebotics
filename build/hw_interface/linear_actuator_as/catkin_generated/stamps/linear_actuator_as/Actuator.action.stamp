@@ -1,0 +1,7 @@
+int32 targetPos
+int32 speed
+---
+int32 endPos
+bool success
+---
+int32 currentPos

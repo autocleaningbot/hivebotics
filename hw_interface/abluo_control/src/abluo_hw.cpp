@@ -56,7 +56,7 @@ void MyRobot::jointSubscribeCallback(const abluo_control::abluoTelemetry::ConstP
   pos_[0] = msg->lin_act_pos;
   vel_[0] = msg->lin_act_vel;
 
-  for (int i = 1; i < 7; ++i)
+  for (int i = 0; i < 6; ++i)
   {
     pos_[i] = msg->joint_pos[i];
     vel_[i] = msg->joint_vel[i];

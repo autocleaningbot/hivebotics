@@ -23,12 +23,11 @@ joint_state_controller:
   # - name: joint_state_controller
   #   type: joint_state_controller/JointStateController
   #   publish_rate: 200
-
-
-  # - name: 
+  
 arm_motion_group_controller:
   type: position_controllers/JointTrajectoryController
   action_ns: joint_trajectory_action
+  default: true
   joints:
     - robot_arm_mount_to_actuator
     - joint2_to_joint1

@@ -70,7 +70,7 @@
     <!-- move_group settings -->
     <arg name="pipeline" default="ompl" />
     <arg name="allow_trajectory_execution" default="true"/>
-    <!-- <arg name="moveit_controller_manager" default="simple" />  -->
+    <arg name="moveit_controller_manager" default="ros_control" /> 
     <!-- <arg name="moveit_controller_manager" value="moveit_simple_controller_manager/MoveItSimpleControllerManager" /> -->
     <!-- <arg name="fake_execution_type" default="interpolate"/> -->
     <!-- <arg name="max_safe_path_cost" default="1"/> -->

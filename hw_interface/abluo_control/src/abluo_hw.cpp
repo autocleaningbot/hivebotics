@@ -1,48 +1,66 @@
 #include <abluo_control/abluo_hw.h>
 
-MyRobot::MyRobot(ros::NodeHandle &root_nh) : nh_(root_nh), private_nh_("~"), priv_spinner(1)
+MyRobot::MyRobot(ros::NodeHandle &root_nh) : nh_(root_nh), private_nh_("~"), priv_spinner(3)
 {
-  hardware_interface::JointStateHandle state_handle_0("robot_arm_mount_to_actuator", &pos_[0], &vel_[0], &eff_[0]);
-  jnt_state_interface.registerHandle(state_handle_0);
-  hardware_interface::JointStateHandle state_handle_1("joint2_to_joint1", &pos_[1], &vel_[1], &eff_[1]);
-  jnt_state_interface.registerHandle(state_handle_1);
-  hardware_interface::JointStateHandle state_handle_2("joint3_to_joint2", &pos_[2], &vel_[2], &eff_[2]);
-  jnt_state_interface.registerHandle(state_handle_2);
-  hardware_interface::JointStateHandle state_handle_3("joint4_to_joint3", &pos_[3], &vel_[3], &eff_[3]);
-  jnt_state_interface.registerHandle(state_handle_3);
-  hardware_interface::JointStateHandle state_handle_4("joint5_to_joint4", &pos_[4], &vel_[4], &eff_[4]);
-  jnt_state_interface.registerHandle(state_handle_4);
-  hardware_interface::JointStateHandle state_handle_5("joint6_to_joint5", &pos_[5], &vel_[5], &eff_[5]);
-  jnt_state_interface.registerHandle(state_handle_5);
-  hardware_interface::JointStateHandle state_handle_6("joint6output_to_joint6", &pos_[6], &vel_[6], &eff_[6]);
-  jnt_state_interface.registerHandle(state_handle_6);
-  registerInterface(&jnt_state_interface);
+  XmlRpc::XmlRpcValue v;
+  nh_.param("/hardware_interface/joints", v, v);
+  num_jnts = v.size();
+  jnt_names.resize(num_jnts);
 
-  hardware_interface::JointHandle eff_handle_0(jnt_state_interface.getHandle("robot_arm_mount_to_actuator"), &cmd_[0]);
-  jnt_position_interface.registerHandle(eff_handle_0);
-  hardware_interface::JointHandle eff_handle_1(jnt_state_interface.getHandle("joint2_to_joint1"), &cmd_[1]);
-  jnt_position_interface.registerHandle(eff_handle_1);
-  hardware_interface::JointHandle eff_handle_2(jnt_state_interface.getHandle("joint3_to_joint2"), &cmd_[2]);
-  jnt_position_interface.registerHandle(eff_handle_2);
-  hardware_interface::JointHandle eff_handle_3(jnt_state_interface.getHandle("joint4_to_joint3"), &cmd_[3]);
-  jnt_position_interface.registerHandle(eff_handle_3);
-  hardware_interface::JointHandle eff_handle_4(jnt_state_interface.getHandle("joint5_to_joint4"), &cmd_[4]);
-  jnt_position_interface.registerHandle(eff_handle_4);
-  hardware_interface::JointHandle eff_handle_5(jnt_state_interface.getHandle("joint6_to_joint5"), &cmd_[5]);
-  jnt_position_interface.registerHandle(eff_handle_5);
-  hardware_interface::JointHandle eff_handle_6(jnt_state_interface.getHandle("joint6output_to_joint6"), &cmd_[6]);
-  jnt_position_interface.registerHandle(eff_handle_6);
+  // load joint names
+  for(int i =0; i < v.size(); i++)
+  {
+    jnt_names[i] = static_cast<std::string>(v[i]);
+    std::cerr << "jnt_names: " << jnt_names[i] << std::endl;
+  }
+
+  pos_.resize(num_jnts, 0.0);
+  vel_.resize(num_jnts, 0.0);
+  eff_.resize(num_jnts, 0.0);
+
+  pos_cmd_.resize(num_jnts, 0.0);
+  vel_cmd_.resize(num_jnts, 0.0);
+  acc_cmd_.resize(num_jnts, 0.0);
+  eff_cmd_.resize(num_jnts, 0.0);
+
+
+  for(int i = 0 ; i < num_jnts ; ++i)
+  {
+    // hardware_interface::JointStateHandle
+    hardware_interface::JointStateHandle state_handle(jnt_names[i], &pos_[i], &vel_[i], &eff_[i]);
+    jnt_state_interface.registerHandle(state_handle);
+
+    // hardware_interface::PositionJointInterface
+    hardware_interface::JointHandle pos_cmd_handle(jnt_state_interface.getHandle(jnt_names[i]), &pos_cmd_[i]);
+    jnt_position_interface.registerHandle(pos_cmd_handle);
+
+    // hardware_interface::VelocityJointInterface
+    hardware_interface::JointHandle vel_cmd_handle(jnt_state_interface.getHandle(jnt_names[i]), &vel_cmd_[i]);
+    jnt_velocity_interface.registerHandle(vel_cmd_handle);
+
+    // hardware_interface::EffortJointInterface
+    hardware_interface::JointHandle eff_cmd_handle(jnt_state_interface.getHandle(jnt_names[i]), &eff_cmd_[i]);
+    jnt_effort_interface_.registerHandle(eff_cmd_handle);
+  }
+
+  registerInterface(&jnt_state_interface);
   registerInterface(&jnt_position_interface);
+  registerInterface(&jnt_velocity_interface);
+  registerInterface(&jnt_effort_interface_);
+
 
   init(nh_, private_nh_);
 
+
   // joint_subscriber_ = nh_.subscribe("/joint_states_array", 10, &MyRobot::jointSubscribeCallback, this);
-  joint_subscriber_ = nh_.subscribe("/joint_states_array", 1, &MyRobot::jointSubscribeCallback, this);
+  joint_subscriber_ = nh_.subscribe("/joint_states_array", 10, &MyRobot::jointSubscribeCallback, this);
 
   // cmd_publisher_ = nh_.advertise<std_msgs::Float32MultiArray>("/joint_cmd_array", 10);
-  cmd_publisher_ = nh_.advertise<abluo_control::armCmd>("/joint_cmd_array", 1);
+  cmd_publisher_ = nh_.advertise<abluo_control::armCmd>("/joint_cmd_array", 10);
 
   priv_spinner.start();
+
+  joint_position_prev.resize(num_jnts, 0.0);
 }
 
 void MyRobot::jointSubscribeCallback(const abluo_control::abluoTelemetry::ConstPtr &msg)
@@ -50,24 +68,24 @@ void MyRobot::jointSubscribeCallback(const abluo_control::abluoTelemetry::ConstP
 
   // float32 lin_act_pos #val
   // float32 lin_act_vel
-  // float32[6] joint_pos #degrees
-  // float32[6] joint_vel #deg/s
+  // float32[6] joint_pos #rad
+  // float32[6] joint_vel #rad/s
 
   pos_[0] = msg->lin_act_pos;
   vel_[0] = msg->lin_act_vel;
-  eff_[0] = 0;
+  // eff_[0] = 0;
 
   for (int i = 0; i < 6; ++i)
   {
     pos_[i+1] = msg->joint_pos[i];
     vel_[i+1] = msg->joint_vel[i];
-    eff_[i+1] = 0;
+    // eff_[i+1] = 0;
   }
 }
 
 void MyRobot::read(ros::Time time, ros::Duration period)
 {
-  ros::spinOnce();
+  // ros::spinOnce();
   // for (int i = 0; i < 7; i++)
   // {
   //   vel_[i] = 0;
@@ -75,18 +93,45 @@ void MyRobot::read(ros::Time time, ros::Duration period)
   // }
 }
 
-void MyRobot::write(ros::Time time, ros::Duration period)
+void MyRobot::write(ros::Time time, ros::Duration elapsed_time)
 {
   // float32 lin_act_pos #val
   // float32 lin_act_vel
   // float32[6] joint_pos #degrees
   // float32[6] joint_vel #deg/s
-  
-  commands.lin_act_pos = cmd_[0];
 
-  for (int i = 1; i < 7; ++i)
+  /*
+  caculate at a much higher rate then needed. then only send ones needed to fill buffer.
+  */
+  
+
+  // only publish a msg if it has a change
+  bool change_detected=false;
+  for(int i=0; i < num_jnts; i++)
   {
-    commands.joint_pos[i-1] = cmd_[i];
+    if(joint_position_prev[i] != pos_cmd_[i])
+    {
+      change_detected=true;
+      i = num_jnts; // exit loop
+    }
   }
+
+  // std::cout << "change_detected: " << change_detected << std::endl;
+
+  // if a new msg is available then send it
+  if(change_detected)
+  {
+    commands.lin_act_pos = pos_cmd_[0];
+    commands.lin_act_vel = (pos_cmd_[0] - joint_position_prev[0])/elapsed_time.toSec();
+    joint_position_prev[0] = pos_cmd_[0];
+
+    for (int i = 1; i < num_jnts; ++i)
+    {
+      commands.joint_pos[i-1] = pos_cmd_[i];
+      commands.joint_vel[i-1] = (pos_cmd_[i]-joint_position_prev[i])/elapsed_time.toSec();
+      joint_position_prev[i] = pos_cmd_[i];
+    }
   cmd_publisher_.publish(commands);
+  } // changed detected
+
 }

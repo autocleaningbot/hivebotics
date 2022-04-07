@@ -17,13 +17,19 @@ hardware_interface:
 # creates the /joint_states topic necessary in ROS
 joint_state_controller:
   type: joint_state_controller/JointStateController
-  publish_rate: 200
+  action_ns: joint_trajectory_action
+  publish_rate: 50
 
 # controller_list:
   # - name: joint_state_controller
   #   type: joint_state_controller/JointStateController
   #   publish_rate: 200
   
+  # - name: arm_motion_group_controller
+  #   action_ns: follow_joint_trajectory
+  #   default: True
+  #   type: FollowJointTrajectory
+
 arm_motion_group_controller:
   type: position_controllers/JointTrajectoryController
   action_ns: joint_trajectory_action

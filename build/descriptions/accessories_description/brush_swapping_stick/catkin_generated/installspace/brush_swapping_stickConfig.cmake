@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /usr/local/lib;/home/dell/work/ros_ws/hivebotics/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /usr/local/lib;/home/dell/work/ros_ws/hivebotics/devel/lib;/home/dell/work/ros_ws/my/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

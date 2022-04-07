@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
     <!-- Load the URDF to the parameter server -->
     <param name="robot_description" command="xacro  '$(find arm_plus_base_description)/urdf/arm_plus_base.urdf.xacro'" />
@@ -10,11 +11,6 @@
     <rosparam file="$(find abluo_control)/config/trajectory_controller.yaml" command="load" />
     <!-- <rosparam file="$(find abluo_control)/config/controllers.yaml" command="load" /> -->
 
-
-    <!-- <include file="$(find abluo_1_moveit_config)/launch/ros_controllers.launch"> --> -->
-        <!-- <arg name="load_robot_description" value="true" /> -->
-    <!-- </include> -->
-
     <!-- Load hardware interface -->
     <node name="abluo_hw_main" pkg="abluo_control" type="abluo_hw_main" output="screen" />
     
@@ -26,29 +22,17 @@
 
     <!-- Load controller manager  -->
     <!-- Load the controllers -->
-    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="joint_state_controller arm_motion_group_controller  "/>
-    <!-- joint_state_controller  -->
-    <!-- <node 
+    <node 
         name="ros_control_controller_manager" 
         pkg="controller_manager" 
         type="controller_manager" 
-        respawn="false" 
+        respawn="false"
         output="screen" 
-        args="spawn joint_state_controller arm_motion_group_controller" /> -->
-    <!-- <node name="controller_manager" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="follow_joint_trajectory" args="spawn joint_state_controller arm_motion_group_controller" /> -->
-
-
+        args="spawn joint_state_controller arm_motion_group_controller"
+        />
 
     <!-- Convert joint states to /tf tranforms -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-
-    <!-- We do not have a real robot connected, so publish fake joint states via a joint_state_publisher
-         MoveIt's fake controller's joint states are considered via the 'source_list' parameter -->
-    <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
-    <!-- </node> -->
-    <!-- <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam> -->
-    
 
  <!-- MOVEIT -->
 
@@ -61,29 +45,17 @@
 
     <!-- Remap follow_joint_trajectory -->
     <remap from="/joint_trajectory_action" to="/arm_motion_group_controller/follow_joint_trajectory" />
-    <!-- <remap from="/execute_trajectory" to="/arm_motion_group_controller/follow_joint_trajectory" /> -->
 
 
 
     <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default)  -->
     <include file="$(find abluo_1_moveit_config)/launch/move_group.launch">
     <!-- move_group settings -->
-    <arg name="pipeline" default="ompl" />
-    <arg name="allow_trajectory_execution" default="true"/>
-    <arg name="moveit_controller_manager" default="ros_control" /> 
-    <!-- <arg name="moveit_controller_manager" value="moveit_simple_controller_manager/MoveItSimpleControllerManager" /> -->
-    <!-- <arg name="fake_execution_type" default="interpolate"/> -->
-    <!-- <arg name="max_safe_path_cost" default="1"/> -->
-    <!-- <arg name="publish_monitored_planning_scene" default="true"/> -->
+    <!-- <arg name="pipeline"                    value="ompl" /> -->
+    <arg name="allow_trajectory_execution"  value="true"/>
+    <arg name="fake_execution"              value="false"/>
+    <arg name="info" value="true"/> 
     </include>
 
-
-<!-- simple fake ros_control -->
-    <!-- <launch> -->
- <!-- Set the param that trajectory_execution_manager needs to find the controller plugin -->
- <!-- <arg name="moveit_controller_manager" default="moveit_simple_controller_manager/MoveItSimpleControllerManager" /> -->
- <!-- <param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/> -->
- <!-- load controller_list -->
- <!-- <rosparam file="$(find my_robot_name_moveit_config)/config/controllers.yaml"/> -->
 
 </launch>

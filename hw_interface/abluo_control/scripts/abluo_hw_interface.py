@@ -88,7 +88,7 @@ class MycobotHwInterface:
         float32[6] joint_vel #deg/s
         """
 
-        # load the latest data        
+        # load the latest data
         self.curr_time = rospy.get_time()
 
         self.curr_lin_pos = self.la_pos
@@ -144,10 +144,18 @@ class MycobotHwInterface:
             la_goal.targetPos = int(data_list[0]*20000) # 6000 steps approx = 0.3 m => 20,000 steps approx 1m
             self.la_client.send_goal(la_goal)
 
-            self.mycobot_.send_radians(data_list[1:7], 40)
+            # self.mycobot_.send_radians(data_list[1:7], 40)
+            self.mycobot_.sync_send_angles(
+                [180/np.pi*rad for rad in data_list[1:7]], 
+                40
+            )
             self.pre_data_list = []
             for value in data_list:
                 self.pre_data_list.append(value)
+
+            # wait for the linear actuator to finish otherwise log an error
+            if not self.la_client.wait_for_result(rospy.Duration(1)):
+                rospy.logerr("linear actuator haven't responded yet")
 
 if __name__ == '__main__':
     try:

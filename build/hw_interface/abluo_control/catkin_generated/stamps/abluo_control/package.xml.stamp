@@ -60,8 +60,10 @@
   <build_depend>ros_control_boilerplate</build_depend>
   <!-- <build_depend>rospy</build_depend> -->
   <build_depend>transmission_interface</build_depend>
+  <build_depend>moveit_msgs</build_depend>
+  <build_depend>moveit_visual_tools</build_depend>
   <build_depend>moveit_ros_planning_interface</build_depend>
-
+ 
   
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
@@ -75,7 +77,10 @@
   <build_export_depend>ros_control_boilerplate</build_export_depend>
   <!-- <build_export_depend>rospy</build_export_depend> -->
   <build_export_depend>transmission_interface</build_export_depend>
+  <build_export_depend>moveit_visual_tools</build_export_depend>
   <build_export_depend>moveit_ros_planning_interface</build_export_depend>
+  <build_export_depend>moveit_ros_planning_interface</build_export_depend>
+
 
   <exec_depend>roscpp</exec_depend>
   <exec_depend>message_generation</exec_depend>
@@ -89,6 +94,8 @@
   <exec_depend>message_runtime</exec_depend>
   <!-- <exec_depend>rospy</exec_depend> -->
   <exec_depend>transmission_interface</exec_depend>
+  <exec_depend>moveit_ros_planning_interface</exec_depend>
+  <exec_depend>moveit_ros_planning_interface</exec_depend>
   <exec_depend>moveit_ros_planning_interface</exec_depend>
 
 

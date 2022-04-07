@@ -85,21 +85,6 @@
   "file": "/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/rrbot_control/src/rrbot_hw_interface.cpp"
 },
 {
-  "directory": "/home/dell/work/ros_ws/hivebotics/src/build/hw_interface/abluo_control",
-  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"abluo_control\\\" -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/bullet -I/usr/include/OGRE  -g   -std=c++11 -o CMakeFiles/abluo_hw_main.dir/src/abluo_hw.cpp.o -c /home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_hw.cpp",
-  "file": "/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_hw.cpp"
-},
-{
-  "directory": "/home/dell/work/ros_ws/hivebotics/src/build/hw_interface/abluo_control",
-  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"abluo_control\\\" -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/bullet -I/usr/include/OGRE  -g   -std=c++11 -o CMakeFiles/abluo_hw_main.dir/src/abluo_hw_main.cpp.o -c /home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_hw_main.cpp",
-  "file": "/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_hw_main.cpp"
-},
-{
-  "directory": "/home/dell/work/ros_ws/hivebotics/src/build/hw_interface/abluo_control",
-  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"abluo_control\\\" -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/bullet -I/usr/include/OGRE  -g   -std=c++11 -o CMakeFiles/abluo_sim_echo_node.dir/src/abluo_sim_echo.cpp.o -c /home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_sim_echo.cpp",
-  "file": "/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_sim_echo.cpp"
-},
-{
   "directory": "/home/dell/work/ros_ws/hivebotics/src/build/3rd_party/moveit_cartesian_plan_plugin",
   "command": "/usr/bin/c++  -DQT_CONCURRENT_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_KEYWORDS -DQT_WIDGETS_LIB -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"moveit_cartesian_plan_plugin\\\" -Dmoveit_cartesian_plan_plugin_EXPORTS -I/home/dell/work/ros_ws/hivebotics/src/3rd_party/moveit_cartesian_plan_plugin/include -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/OGRE/Overlay -I/usr/include/OGRE -I/usr/include/bullet -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtConcurrent  -g -fPIC   -std=c++11 -fPIC -o CMakeFiles/moveit_cartesian_plan_plugin.dir/src/add_way_point.cpp.o -c /home/dell/work/ros_ws/hivebotics/src/3rd_party/moveit_cartesian_plan_plugin/src/add_way_point.cpp",
   "file": "/home/dell/work/ros_ws/hivebotics/src/3rd_party/moveit_cartesian_plan_plugin/src/add_way_point.cpp"
@@ -178,6 +163,21 @@
   "directory": "/home/dell/work/ros_ws/hivebotics/src/build/3rd_party/moveit_cartesian_plan_plugin",
   "command": "/usr/bin/c++  -DQT_CONCURRENT_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_KEYWORDS -DQT_WIDGETS_LIB -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"moveit_cartesian_plan_plugin\\\" -Dmoveit_cartesian_plan_plugin_EXPORTS -I/home/dell/work/ros_ws/hivebotics/src/3rd_party/moveit_cartesian_plan_plugin/include -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/OGRE/Overlay -I/usr/include/OGRE -I/usr/include/bullet -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtConcurrent  -g -fPIC   -std=c++11 -fPIC -o CMakeFiles/moveit_cartesian_plan_plugin.dir/include/moveit_cartesian_plan_plugin/moc_waypoint.cpp.o -c /home/dell/work/ros_ws/hivebotics/src/build/3rd_party/moveit_cartesian_plan_plugin/include/moveit_cartesian_plan_plugin/moc_waypoint.cpp",
   "file": "/home/dell/work/ros_ws/hivebotics/src/build/3rd_party/moveit_cartesian_plan_plugin/include/moveit_cartesian_plan_plugin/moc_waypoint.cpp"
+},
+{
+  "directory": "/home/dell/work/ros_ws/hivebotics/src/build/hw_interface/abluo_control",
+  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"abluo_control\\\" -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/bullet -I/usr/include/OGRE  -g   -std=c++11 -o CMakeFiles/abluo_sim_echo_node.dir/src/abluo_sim_echo.cpp.o -c /home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_sim_echo.cpp",
+  "file": "/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_sim_echo.cpp"
+},
+{
+  "directory": "/home/dell/work/ros_ws/hivebotics/src/build/hw_interface/abluo_control",
+  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"abluo_control\\\" -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/bullet -I/usr/include/OGRE  -g   -std=c++11 -o CMakeFiles/abluo_hw_main.dir/src/abluo_hw.cpp.o -c /home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_hw.cpp",
+  "file": "/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_hw.cpp"
+},
+{
+  "directory": "/home/dell/work/ros_ws/hivebotics/src/build/hw_interface/abluo_control",
+  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"abluo_control\\\" -I/home/dell/work/ros_ws/hivebotics/src/build/devel/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/include -I/home/dell/work/ros_ws/hivebotics/src/hw_interface/ros_control_boilerplate/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/bullet -I/usr/include/OGRE  -g   -std=c++11 -o CMakeFiles/abluo_hw_main.dir/src/abluo_hw_main.cpp.o -c /home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_hw_main.cpp",
+  "file": "/home/dell/work/ros_ws/hivebotics/src/hw_interface/abluo_control/src/abluo_hw_main.cpp"
 },
 {
   "directory": "/home/dell/work/ros_ws/hivebotics/src/build/planning",

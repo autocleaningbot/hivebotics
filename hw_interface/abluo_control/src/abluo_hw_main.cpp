@@ -12,23 +12,25 @@ int main(int argc, char **argv)
 	ros::AsyncSpinner spinner(1);
 	spinner.start();
 	
-	ros::Time prev_time = ros::Time::now();
+	ros::Time prevTime = ros::Time::now();
 	ros::Rate rate(100); // 100 Hz rate
 
-	ros::Time time = ros::Time::now();
-	ros::Duration period = time - prev_time;
+	ros::Time currTime = ros::Time::now();
+	ros::Duration period = currTime - prevTime;
 
 
 	while (ros::ok())
 	{
-		time = ros::Time::now();
-		period = time - prev_time;
+		currTime = ros::Time::now();
+		period = currTime - prevTime;
 
-		robot.read(time, period);
-		cm.update(time, period);
-		robot.write(time, period);
+		robot.read(currTime, period);
+		cm.update(currTime, period);
+		robot.write(currTime, period);
 
 		rate.sleep();
+
+		prevTime = currTime;
 	}
 	return 0;
 }

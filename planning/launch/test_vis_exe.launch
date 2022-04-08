@@ -7,8 +7,8 @@
 
 
 <!--point cloud to paths-->
-<arg name="xEpAxis"                default="0.05" />
-<arg name="yEpAxis"                default="0.05" />
+<arg name="xEpAxis"                default="0.0625" />
+<arg name="yEpAxis"                default="0.0625" />
 <!-- <arg name="xEpAxis"                default="0.1" /> -->
 <arg name="wpStepSize"             default="10"/>
 
